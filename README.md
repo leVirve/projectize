@@ -1,3 +1,7 @@
+# Projectize
+
+應該就照著裝就可以囉 ^^
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
