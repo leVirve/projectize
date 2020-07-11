@@ -67,7 +67,7 @@ const sections = [
   { title: 'Abstract', url: '#abstract' },
   { title: 'Paper', url: '#paper' },
   { title: 'Download', url: '#download' },
-  { title: 'Results', url: '/demo' },
+  { title: 'Results', url: '/#results' },
   { title: 'References', url: '#references' },
 ];
 const authors = [

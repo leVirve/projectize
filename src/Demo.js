@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 200,
   },
+  cardheight: {
+    height: 200
+  }
 }));
 
 const theme = createMuiTheme({
@@ -41,11 +44,9 @@ const theme = createMuiTheme({
 
 const sections = [
   { title: 'Home', url: '/' },
-  { title: 'Abstract', url: '/#abstract' },
-  { title: 'Paper', url: '/#paper' },
-  { title: 'Download', url: '/#download' },
-  { title: 'Results', url: '/demo' },
-  { title: 'References', url: '/#references' },
+  { title: 'Select', url: '/demo/#select' },
+  { title: 'Result', url: '/demo/#result' },
+  { title: 'References', url: '/demo/#references' },
 ];
 
 function valuetext(value) {
@@ -60,23 +61,6 @@ function zeroPad(num, numZeros) {
       zeroString = '-' + zeroString;
   }
   return zeroString+n;
-}
-
-class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
-
-  render() {
-    return (
-      <button className="square" onClick={() => alert('click')}>
-        {this.props.value}
-      </button>
-    );
-  }
 }
 
 function App() {
@@ -103,7 +87,7 @@ function App() {
       <div className="App">
         <Container maxWidth="lg">
           <Header title="Qualitative Results" sections={sections} />
-          <Title name="Select" />
+          <Title anchor="select" name="Select" />
           <Typography variant="h6" align="left" paragraph>
             Select dataset(task) & content image id (from 1 to 25) & style image id (from 1 to 10).
           </Typography>
@@ -156,7 +140,7 @@ function App() {
             </Grid>
           </Grid>
 
-          <Title name="Result" />
+          <Title anchor="result" name="Result" />
           <Typography variant="h6" align="left" paragraph>
             Given the content and style image, show the generated result from MUNIT, GDWCT, MSGAN, and ours.
           </Typography>
@@ -166,6 +150,7 @@ function App() {
                 Content Image
               </Typography>
               <CardMedia
+                className={classes.cardheight}
                 component="img"
                 src={'/demo_compared/' + dataset + '/content_' + zeroPad(imageId, 2) + '.jpg'}
               />
@@ -175,6 +160,7 @@ function App() {
                 Style Image
               </Typography>
               <CardMedia
+                className={classes.cardheight}
                 component="img"
                 src={'/demo_compared/' + dataset + '/style_' + zeroPad(styleId, 2) + '.jpg'}
               />
@@ -187,6 +173,7 @@ function App() {
                 MUNIT [1]
               </Typography>
               <CardMedia
+                className={classes.cardheight}
                 component="img"
                 src={'/demo_compared/' + dataset + '/munit_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
@@ -196,6 +183,7 @@ function App() {
                 GDWCT [2]
               </Typography>
               <CardMedia
+                className={classes.cardheight}
                 component="img"
                 src={'/demo_compared/' + dataset + '/gdwct_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
@@ -205,6 +193,7 @@ function App() {
                 MSGAN [3]
               </Typography>
               <CardMedia
+                className={classes.cardheight}
                 component="img"
                 src={'/demo_compared/' + dataset + '/msgan_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
@@ -214,6 +203,7 @@ function App() {
                 Ours
               </Typography>
               <CardMedia
+                className={classes.cardheight}
                 component="img"
                 src={'/demo_compared/' + dataset + '/ours_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
