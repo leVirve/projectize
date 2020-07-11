@@ -10,9 +10,11 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+
 import Header from './components/Headers.jsx';
 import Author from './components/Author.jsx';
 import Banner from './components/Banner.jsx';
+import Button from './components/Button.jsx';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -78,6 +80,7 @@ function App() {
           </Typography>
           <Author authors={authors} affiliations={affiliations} />
           <Banner imageSrc={teaserImage} />
+          <Button text="Download Code / Results" link="#download" />
 
           <Typography id="abstract" align="left" variant="h4" color="inherit" gutterBottom>
             Abstract
