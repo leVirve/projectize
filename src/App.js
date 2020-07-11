@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { GitHub as GitHubIcon, Storage as StorageIcon } from '@material-ui/icons';
+import { GitHub as GitHubIcon, Storage as StorageIcon, YouTube as YouTubeIcon } from '@material-ui/icons';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 import Header from './components/Headers.jsx';
@@ -68,7 +68,7 @@ const sections = [
   { title: 'Abstract', url: '#abstract' },
   { title: 'Paper', url: '#paper' },
   { title: 'Download', url: '#download' },
-  { title: 'Results', url: '#results' },
+  { title: 'Results', url: '/#results' },
   { title: 'References', url: '#references' },
 ];
 const authors = [
@@ -143,11 +143,17 @@ function App() {
                 <Typography align="left" variant="h6" color="inherit" gutterBottom>Results</Typography>
               </Link>
             </Grid>
+            <Grid item>
+              <Link href="https://www.youtube.com/watch?v=pJWcHhofYTE" target="_blank" rel="noopener">
+                <YouTubeIcon style={{ fontSize: 40 }} />
+                <Typography align="left" variant="h6" color="inherit">Video</Typography>
+              </Link>
+            </Grid>
           </Grid>
 
           <Title anchor="results" name="Results" />
           <Typography align="left" variant="h6" color="inherit" gutterBottom>
-            <Link href="" target="_blank" rel="noopener">Demo page</Link>
+            <Link href="/demo" target="_blank" rel="noopener">Demo page</Link>
           </Typography>
           <SlidingShow />
 
