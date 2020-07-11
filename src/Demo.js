@@ -4,8 +4,10 @@ import './App.css';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography';
-import { Grid, Link, CardMedia, Slider, Select, InputLabel, FormControl, MenuItem } from '@material-ui/core';
+import { Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem } from '@material-ui/core';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import Image from 'material-ui-image';
+import GithubCorner from 'react-github-corner';
 
 import Header from './components/Headers.jsx';
 import Footer from './components/Footer.jsx';
@@ -44,6 +46,7 @@ const theme = createMuiTheme({
 
 const sections = [
   { title: 'Home', url: '/' },
+  // TODO: hash will be re-do by route
   { title: 'Select', url: '/demo/#select' },
   { title: 'Result', url: '/demo/#result' },
   { title: 'References', url: '/demo/#references' },
@@ -84,6 +87,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <GithubCorner href="https://github.com/username/repo" />
       <div className="App">
         <Container maxWidth="lg">
           <Header title="Qualitative Results" sections={sections} />
@@ -145,66 +149,54 @@ function App() {
             Given the content and style image, show the generated result from MUNIT, GDWCT, MSGAN, and ours.
           </Typography>
           <Grid container justify="center" spacing={6}>
-            <Grid item>
-              <Typography variant="h6" align="center" >
+            <Grid item xs={6} md={3}>
+              <Typography variant="subtitle1" align="center" >
                 Content Image
               </Typography>
-              <CardMedia
-                className={classes.cardheight}
-                component="img"
+              <Image
                 src={'/demo_compared/' + dataset + '/content_' + zeroPad(imageId, 2) + '.jpg'}
               />
             </Grid>
-            <Grid item>
-              <Typography variant="h6" align="center" >
+            <Grid item xs={6} md={3}>
+              <Typography variant="subtitle1" align="center" >
                 Style Image
               </Typography>
-              <CardMedia
-                className={classes.cardheight}
-                component="img"
+              <Image
                 src={'/demo_compared/' + dataset + '/style_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
           </Grid>
 
-          <Grid container justify="center" spacing={6}>
-            <Grid item>
-              <Typography variant="h6" align="center" >
+          <Grid container justify="center" spacing={1}>
+            <Grid item xs={3} md={3}>
+              <Typography variant="subtitle1" align="center" >
                 MUNIT [1]
               </Typography>
-              <CardMedia
-                className={classes.cardheight}
-                component="img"
+              <Image
                 src={'/demo_compared/' + dataset + '/munit_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
-            <Grid item>
-              <Typography variant="h6" align="center" >
+            <Grid item xs={3} md={3}>
+              <Typography variant="subtitle1" align="center" >
                 GDWCT [2]
               </Typography>
-              <CardMedia
-                className={classes.cardheight}
-                component="img"
+              <Image
                 src={'/demo_compared/' + dataset + '/gdwct_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
-            <Grid item>
-              <Typography variant="h6" align="center" >
+            <Grid item xs={3} md={3}>
+              <Typography variant="subtitle1" align="center" >
                 MSGAN [3]
               </Typography>
-              <CardMedia
-                className={classes.cardheight}
-                component="img"
+              <Image
                 src={'/demo_compared/' + dataset + '/msgan_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
-            <Grid item>
-              <Typography variant="h6" align="center" >
+            <Grid item xs={3} md={3}>
+              <Typography variant="subtitle1" align="center" >
                 Ours
               </Typography>
-              <CardMedia
-                className={classes.cardheight}
-                component="img"
+              <Image
                 src={'/demo_compared/' + dataset + '/ours_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>

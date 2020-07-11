@@ -13,13 +13,13 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { GitHub as GitHubIcon, Storage as StorageIcon, YouTube as YouTubeIcon } from '@material-ui/icons';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import GithubCorner from 'react-github-corner';
 
 import Header from './components/Headers.jsx';
 import Title from './components/Title.jsx';
 import Author from './components/Author.jsx';
 import Banner from './components/Banner.jsx';
 import Button from './components/Button.jsx';
-import SlidingShow from './components/SlidingShow.jsx';
 import Footer from './components/Footer.jsx';
 
 
@@ -91,6 +91,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <GithubCorner href="https://github.com/username/repo" />
       <CssBaseline />
       <div className="App">
         <Container maxWidth="lg">
@@ -155,7 +156,6 @@ function App() {
           <Typography align="left" variant="h6" color="inherit" gutterBottom>
             <Link href="/demo" target="_blank" rel="noopener">Demo page</Link>
           </Typography>
-          <SlidingShow />
 
           <Title anchor="references" name="References" />
           {[1, 2, 3, 4].map((e, index) => (
