@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-
-import testImage from './demo_compared/dog2cat/content_01.jpg';
 
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography';
-import { Grid, Link, Slider, NativeSelect, InputLabel, FormControl } from '@material-ui/core';
+import { Grid, Link, CardMedia, Slider, Select, InputLabel, FormControl, MenuItem } from '@material-ui/core';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 import Header from './components/Headers.jsx';
 import Footer from './components/Footer.jsx';
 import Title from './components/Title.jsx';
-import Banner from './components/Banner.jsx';
 
 const useStyles = makeStyles((theme) => ({
   slider: {
@@ -51,18 +48,19 @@ const sections = [
   { title: 'References', url: '/#references' },
 ];
 
-const teaserBanner = {
-  image: {testImage},
-  elevation: 0,
-}
-
 function valuetext(value) {
   return `${value}`;
 }
 
-var dataset = 'dog2cat';
-var contentidx = 1;
-var styleidx = 1;
+function zeroPad(num, numZeros) {
+  var n = Math.abs(num);
+  var zeros = Math.max(0, numZeros - Math.floor(n).toString().length );
+  var zeroString = Math.pow(10,zeros).toString().substr(1);
+  if( num < 0 ) {
+      zeroString = '-' + zeroString;
+  }
+  return zeroString+n;
+}
 
 class Square extends React.Component {
   constructor(props) {
@@ -83,17 +81,20 @@ class Square extends React.Component {
 
 function App() {
   const classes = useStyles();
+  const [imageId, setImageId] = useState(1);
+  const [styleId, setStyleId] = useState(1);
+  const [dataset, setDataset] = useState('dog2cat');
 
-  const setdataset = (event) => {
-    dataset = event.target.value;
+  const handleDatasetChange = (event) => {
+    setDataset(event.target.value);
   };
 
-  const setcontent = (event) => {
-    contentidx = event.target.value;
+  const handleImageChange = (event, newValue) => {
+    setImageId(newValue);
   };
 
-  const setstyle = (event) => {
-    styleidx = event.target.value;
+  const handleStylehange = (event, newValue) => {
+    setStyleId(newValue);
   };
 
   return (
@@ -110,19 +111,15 @@ function App() {
             <Grid item>
               <FormControl className={classes.formControl}>
               <InputLabel id="label">Dataset</InputLabel>
-                <NativeSelect
-                  defaultValue="dog2cat"
-                  inputProps={{
-                    name: 'dataset',
-                    id: 'dataset-select',
-                  }}
-                  onChange={setdataset}
+                <Select
+                  value={dataset}
+                  onChange={handleDatasetChange}
                 >
-                  <option value="dog2cat">Dog to Cat</option>
-                  <option value="cat2dog">Cat to Dog</option>
-                  <option value="monet">Photo to Monet</option>
-                  <option value="portrait">Photo to Portrait</option>
-                </NativeSelect>
+                  <MenuItem value="dog2cat">Dog to Cat</MenuItem>
+                  <MenuItem value="cat2dog">Cat to Dog</MenuItem>
+                  <MenuItem value="monet">Photo to Monet</MenuItem>
+                  <MenuItem value="portrait">Photo to Portrait</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item>
@@ -130,7 +127,7 @@ function App() {
                 Content Image id:
               </Typography>
               <Slider className={classes.slider}
-                defaultValue={1}
+                value={imageId}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -138,7 +135,7 @@ function App() {
                 marks
                 min={1}
                 max={25}
-                onChange={setcontent}
+                onChange={handleImageChange}
               />
             </Grid>
             <Grid item>
@@ -146,7 +143,7 @@ function App() {
                 Style Image id:
               </Typography>
               <Slider className={classes.slider}
-                defaultValue={1}
+                value={styleId}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
@@ -154,7 +151,7 @@ function App() {
                 marks
                 min={1}
                 max={10}
-                onChange={setstyle}
+                onChange={handleStylehange}
               />
             </Grid>
           </Grid>
@@ -168,13 +165,19 @@ function App() {
               <Typography variant="h6" align="center" >
                 Content Image
               </Typography>
-              <Banner metadata={teaserBanner} imageSrc={testImage} />
+              <CardMedia
+                component="img"
+                src={'/demo_compared/' + dataset + '/content_' + zeroPad(imageId, 2) + '.jpg'}
+              />
             </Grid>
             <Grid item>
               <Typography variant="h6" align="center" >
                 Style Image
               </Typography>
-              <Banner metadata={teaserBanner} imageSrc={testImage} />
+              <CardMedia
+                component="img"
+                src={'/demo_compared/' + dataset + '/style_' + zeroPad(styleId, 2) + '.jpg'}
+              />
             </Grid>
           </Grid>
 
@@ -183,25 +186,37 @@ function App() {
               <Typography variant="h6" align="center" >
                 MUNIT [1]
               </Typography>
-              <Banner metadata={teaserBanner} imageSrc={testImage} />
+              <CardMedia
+                component="img"
+                src={'/demo_compared/' + dataset + '/munit_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
+              />
             </Grid>
             <Grid item>
               <Typography variant="h6" align="center" >
                 GDWCT [2]
               </Typography>
-              <Banner metadata={teaserBanner} imageSrc={testImage} />
+              <CardMedia
+                component="img"
+                src={'/demo_compared/' + dataset + '/gdwct_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
+              />
             </Grid>
             <Grid item>
               <Typography variant="h6" align="center" >
                 MSGAN [3]
               </Typography>
-              <Banner metadata={teaserBanner} imageSrc={testImage} />
+              <CardMedia
+                component="img"
+                src={'/demo_compared/' + dataset + '/msgan_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
+              />
             </Grid>
             <Grid item>
               <Typography variant="h6" align="center" >
                 Ours
               </Typography>
-              <Banner metadata={teaserBanner} imageSrc={testImage} />
+              <CardMedia
+                component="img"
+                src={'/demo_compared/' + dataset + '/ours_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
+              />
             </Grid>
           </Grid>
 
