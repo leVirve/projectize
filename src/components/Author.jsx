@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -45,3 +46,8 @@ export default function Author(props) {
     </React.Fragment>
   )
 }
+
+Author.propTypes = {
+  authors: PropTypes.array,
+  affiliations: PropTypes.array,
+};
