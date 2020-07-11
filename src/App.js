@@ -19,6 +19,7 @@ import Title from './components/Title.jsx';
 import Author from './components/Author.jsx';
 import Banner from './components/Banner.jsx';
 import Button from './components/Button.jsx';
+import SlidingShow from './components/SlidingShow.jsx';
 import Footer from './components/Footer.jsx';
 
 
@@ -148,6 +149,7 @@ function App() {
           <Typography align="left" variant="h6" color="inherit" gutterBottom>
             <Link href="" target="_blank" rel="noopener">Demo page</Link>
           </Typography>
+          <SlidingShow />
 
           <Title anchor="references" name="References" />
           {[1, 2, 3, 4].map((e, index) => (
