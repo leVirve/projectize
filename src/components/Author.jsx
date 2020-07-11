@@ -36,9 +36,9 @@ export default function Author(props) {
         {affiliations.map((affiliation, index) => (
           <Grid item key={index}>
             <Typography variant="h6">
-              <Link href={affiliation.url}>
+              {/* <Link href={affiliation.url}> */}
                 {affiliation.name}<sup>{affiliation.number}</sup>
-              </Link>
+              {/* </Link> */}
             </Typography>
           </Grid>
         ))}

@@ -8,6 +8,7 @@ import { Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem } from '@
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
 import GithubCorner from 'react-github-corner';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 import Header from './components/Headers.jsx';
 import Footer from './components/Footer.jsx';
@@ -87,7 +88,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <GithubCorner href="https://github.com/username/repo" />
+      <StickyContainer>
+        <Sticky>{({ style }) => <GithubCorner style={style} href="https://github.com/acht7111020/DSMAP" />}</Sticky>
       <div className="App">
         <Container maxWidth="lg">
           <Header title="Qualitative Results" sections={sections} />
@@ -111,7 +113,7 @@ function App() {
               </FormControl>
             </Grid>
             <Grid item>
-              <Typography id="discrete-slider-small-steps" gutterBottom>
+              <Typography variant="subtitle1" gutterBottom>
                 Content Image id:
               </Typography>
               <Slider className={classes.slider}
@@ -127,7 +129,7 @@ function App() {
               />
             </Grid>
             <Grid item>
-              <Typography id="discrete-slider-small-steps" gutterBottom>
+              <Typography variant="subtitle1" gutterBottom>
                 Style Image id:
               </Typography>
               <Slider className={classes.slider}
@@ -219,9 +221,10 @@ function App() {
             Qi Mao, Hsin-Ying Lee, Hung-Yu Tseng, Siwei Ma, and Ming-Hsuan Yang, "Mode Seeking Generative Adversarial Networks for Diverse Image Synthesis"</Link>
             , CVPR 2019
           </Typography>
-          <Footer title="Acknowlegement" description="Template from" />
+          <Footer />
         </Container>
       </div>
+      </StickyContainer>
     </ThemeProvider>
   );
 }
