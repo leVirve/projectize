@@ -8,12 +8,17 @@ import Link from '@material-ui/core/Link';
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
+    backgroundColor: '#363333',
+    color: '#fff',
+    zIndex: -87,
   },
   toolbarTitle: {
     flex: 1,
   },
   toolbarSecondary: {
     justifyContent: 'space-between',
+    backgroundColor: '#fef1f3',
+    zIndex: -87,
     overflowX: 'auto',
   },
   toolbarLink: {

@@ -53,8 +53,8 @@ function App() {
 
   return (
     <div className="App">
+      <Header title={project.paperName} sections={sections} />
       <Container maxWidth="lg">
-        <Header title={project.paperName} sections={sections} />
         <Typography component="h1" variant="h3" gutterBottom className={classes.titleHead}>
           Domain-Specific Mappings <br />
           for Generative Adversarial Style Transfers <br />
