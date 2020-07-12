@@ -4,6 +4,9 @@ export const project = {
     paperThumbImage: "",
     paperThumbTitle: "",
     arxivLink: "",
+    youtubeLink: "https://www.youtube.com/watch?v=pJWcHhofYTE",
+    supplementaryLink: "https://www.dropbox.com/s/9wt2753hjgzf3rv/ECCV_supp_domain_specific_mapping_style_transfer.pdf?dl=0",
+    resultZipLink: "https://drive.google.com/file/d/1RhQRE1a-7O-a7nuNvrcqtoM79sxWvA5g/view?usp=sharing",
 };
 
 export const authors = [

@@ -32,10 +32,10 @@ export default function Title(props) {
 Title.propTypes = {
   name: PropTypes.string,
   anchor: PropTypes.string,
-  variant: PropTypes.shape(
-    PropTypes.string,
-    PropTypes.string
-  ),
+  variant: PropTypes.shape({
+    component: PropTypes.string,
+    variant: PropTypes.string
+  }),
 };
 
 Title.defaultProps = {

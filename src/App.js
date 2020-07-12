@@ -42,7 +42,7 @@ const sections = [
   { title: 'Abstract', url: '#abstract' },
   { title: 'Paper', url: '#paper' },
   { title: 'Download', url: '#download' },
-  { title: 'Results', url: '/#results' },
+  { title: 'Results', url: '#results' },
   { title: 'Acknowledgments', url: '#acknowledgments' },
 ];
 
@@ -55,9 +55,9 @@ function App() {
       <Container maxWidth="lg">
         <Header title={project.paperName} sections={sections} />
         <Typography component="h1" variant="h3" gutterBottom className={classes.titleHead}>
-          Domain-Specific Mappings <br />for Generative Adversarial Style Transfers
-            <br />
-          <Chip label="ECCV 2020" />
+          Domain-Specific Mappings <br />
+          for Generative Adversarial Style Transfers <br />
+          <Chip label="ECCV 2020" />{' '}
           <Chip label="Style Transfer" />
         </Typography>
         <Author authors={authors} affiliations={affiliations} />
@@ -65,7 +65,7 @@ function App() {
         <Button text="Download Code / Results" link="#download" />
 
         <Title anchor="abstract" name="Abstract" />
-        <Typography variant="h6" align="left" paragraph>
+        <Typography component="h3" variant="h6" align="left" paragraph>
           Style transfer generates an image whose content comes from one image and style from the other.
           Image-to-image translation approaches with disentangled representations have been shown effective for style transfer between two image categories.
           However, previous methods often assume a shared domain-invariant content space,
@@ -78,7 +78,7 @@ function App() {
         {/* <Chip label="arxiv" variant="outlined" /> */}
         {/* <Banner metadata={paperThumbBanner} imageSrc={paperThumbImage} /> */}
         <Grid item>
-          <Link href="" target="_blank" rel="noopener">
+          <Link href={project.arxivLink} target="_blank" rel="noopener">
             <PictureAsPdfIcon color="action" style={{ fontSize: 60 }} />
             <Typography align="center" variant="h6" color="inherit">Arxiv</Typography>
           </Link>
@@ -103,45 +103,44 @@ function App() {
         <Title anchor="download" name="Download" />
         <Grid container justify="center" spacing={6}>
           <Grid item>
-            <Link href="https://github.com/acht7111020/DSMAP" target="_blank" rel="noopener">
-              <GitHubIcon style={{ fontSize: 60 }} />
+            <Link href={project.githubPage} target="_blank" rel="noopener">
+              <GitHubIcon color="action" style={{ fontSize: 60 }} />
               <Typography align="center" variant="h6" color="inherit">Code</Typography>
             </Link>
           </Grid>
           <Grid item>
-            <Link href="https://www.dropbox.com/s/9wt2753hjgzf3rv/ECCV_supp_domain_specific_mapping_style_transfer.pdf?dl=0" target="_blank" rel="noopener">
-              <PictureAsPdfIcon style={{ fontSize: 60 }} />
+            <Link href={project.supplementaryLink} target="_blank" rel="noopener">
+              <PictureAsPdfIcon color="action" style={{ fontSize: 60 }} />
               <Typography align="center" variant="h6" color="inherit" gutterBottom>Supplementary</Typography>
             </Link>
           </Grid>
           <Grid item>
-            <Link href="https://drive.google.com/file/d/1RhQRE1a-7O-a7nuNvrcqtoM79sxWvA5g/view?usp=sharing" target="_blank" rel="noopener">
-              <StorageIcon style={{ fontSize: 60 }} />
+            <Link href={project.resultZipLink} target="_blank" rel="noopener">
+              <StorageIcon color="action" style={{ fontSize: 60 }} />
               <Typography align="center" variant="h6" color="inherit" gutterBottom>Results</Typography>
             </Link>
           </Grid>
           <Grid item>
-            <Link href="https://www.youtube.com/watch?v=pJWcHhofYTE" target="_blank" rel="noopener">
-              <YouTubeIcon style={{ fontSize: 60 }} />
+            <Link href={project.youtubeLink} target="_blank" rel="noopener">
+              <YouTubeIcon color="action" style={{ fontSize: 60 }} />
               <Typography align="center" variant="h6" color="inherit">Video</Typography>
             </Link>
           </Grid>
         </Grid>
-        {/* https://www.dropbox.com/s/l8ykaeafo9foxhl/ECCV_supp_domain_specific_mapping_style_transfer.pdf?dl=0 */}
 
         <Title anchor="results" name="Results" />
         <div align="center">
           <Link href="/demo" target="_blank" rel="noopener">
             <Typography variant="h6" color="inherit" gutterBottom>
-              <img src={demoImage} height="150px" /> <br />
+              <img src={demoImage} height="150px" alt="demo page thumb" /> <br />
               Demo Website
             </Typography>
           </Link>
         </div>
 
         <Title anchor="acknowledgments" name="Acknowledgments" />
-        <Typography variant="h6" align="left" paragraph>
-          We thank <Link href="https://github.com/leVirve">Salas Lin</Link> for providing this template! <br />
+        <Typography variant="body1" align="left" paragraph>
+          We thank <Link href="https://github.com/leVirve">Hung-Jin Lin</Link> for providing this template! <br />
           We thank <Link href="https://github.com/HsinYingLee/DRIT">DRIT</Link> and <Link href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix">CycleGAN</Link> for providing their datasets. <br />
           Part of our codes are based on <Link href="https://github.com/NVlabs/MUNIT">MUNIT</Link> and <Link href="https://github.com/HelenMao/MSGAN">MSGAN</Link>.
         </Typography>
