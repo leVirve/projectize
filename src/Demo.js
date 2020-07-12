@@ -20,6 +20,22 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 200,
   },
+  selectText: {
+    "&.Mui-focused": {
+      color: "#FFB6C1",
+    },
+  },
+  select: {
+    "&:before": {
+      borderBottom: `1px solid #F3B3B1`
+    },
+    "&:after": {
+      borderBottom: `3px solid #FFB6C1`
+    },
+    "&:hover:not(.Mui-disabled):not(.Mui-focused):not(.Mui-error):before": {
+      borderBottom: `2px solid #FFB6C1`
+    }
+  }
 }));
 
 const PinkSlider = withStyles({
@@ -122,8 +138,9 @@ function App() {
         <Grid container justify="center" spacing={6}>
           <Grid item>
             <FormControl className={classes.formControl}>
-              <InputLabel id="label">Dataset</InputLabel>
+              <InputLabel id="label" className={classes.selectText}>Dataset</InputLabel>
               <Select
+                className={classes.select}
                 value={dataset}
                 onChange={handleDatasetChange}
               >
