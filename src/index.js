@@ -28,6 +28,14 @@ const theme = createMuiTheme({
       '"Segoe UI Symbol"',
     ].join(','),
   },
+  palette: {
+    primary: {
+      main: '#666',
+    },
+    secondary: {
+      main: '#F092A0',
+    },
+  },
 });
 
 ReactDOM.render(

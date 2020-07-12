@@ -24,17 +24,18 @@ import Footer from './components/Footer.jsx';
 
 const useStyles = makeStyles((theme) => ({
   titleHead: {
-    padding: theme.spacing(8, 0, 4),
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(4),
     fontFamily: 'Source Serif Pro',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
   },
   bibtexSpan: {
     backgroundColor: theme.palette.grey[200],
     marginTop: theme.spacing(2),
     padding: theme.spacing(1, 4),
   },
-  cardheight: {
-    height: 100
-  }
 }));
 
 const sections = [
@@ -57,7 +58,7 @@ function App() {
         <Typography component="h1" variant="h3" gutterBottom className={classes.titleHead}>
           Domain-Specific Mappings <br />
           for Generative Adversarial Style Transfers <br />
-          <Chip label="ECCV 2020" />{' '}
+          <Chip label="ECCV 2020" />
           <Chip label="Style Transfer" />
         </Typography>
         <Author authors={authors} affiliations={affiliations} />
