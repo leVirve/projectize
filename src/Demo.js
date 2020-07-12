@@ -3,14 +3,11 @@ import PropTypes from "prop-types";
 import './App.css';
 
 import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography';
 import { Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem, Box } from '@material-ui/core';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles, makeStyles } from '@material-ui/core/styles';
 
 import Image from 'material-ui-image';
-import GithubCorner from 'react-github-corner';
-import { StickyContainer, Sticky } from 'react-sticky';
 
 import Header from './components/Headers.jsx';
 import Footer from './components/Footer.jsx';
@@ -42,7 +39,7 @@ const PinkSlider = withStyles({
   },
   mark: {
     backgroundColor: "#FFB6C1",
-    height:3,
+    height: 3,
     borderRadius: 2,
   },
   track: {
@@ -58,13 +55,13 @@ const PinkSlider = withStyles({
 })(Slider);
 
 var content_marks = [];
-for (var i = 2; i < 25; i=i+2) {
-  content_marks.push({value: i});
+for (var i = 2; i < 25; i = i + 2) {
+  content_marks.push({ value: i });
 };
 
 var style_marks = [];
 for (var i = 2; i < 10; i++) {
-  style_marks.push({value: i});
+  style_marks.push({ value: i });
 };
 
 const theme = createMuiTheme({
@@ -94,7 +91,7 @@ const sections = [
 
 const publicResultFolder = '/demo_compared';
 
-function urlForResult(dataset, prefix, {imageId, styleId}) {
+function urlForResult(dataset, prefix, { imageId, styleId }) {
   let prefixUrl = `${publicResultFolder}/${dataset}`;
   if (imageId === undefined)
     return `${prefixUrl}/${prefix}_${zeroPad(styleId, 2)}.jpg`;
@@ -106,8 +103,8 @@ function urlForResult(dataset, prefix, {imageId, styleId}) {
 
 function zeroPad(num, numZeros) {
   let zeros = Math.max(0, numZeros - num.toString().length);
-  let zeroString = Math.pow(10,zeros).toString().substr(1);
-  return zeroString+num;
+  let zeroString = Math.pow(10, zeros).toString().substr(1);
+  return zeroString + num;
 }
 
 function ResultImage(props) {
@@ -152,140 +149,134 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <StickyContainer>
-        <Sticky>{({ style }) => <GithubCorner style={style} href="https://github.com/acht7111020/DSMAP" />}</Sticky>
-      <div className="App">
-        <Container maxWidth="lg">
-          <Header title="DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers" sections={sections} />
-          <Title name="Qualitative Results" />
+    <div className="App">
+      <Container maxWidth="lg">
+        <Header title="DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers" sections={sections} />
+        <Title name="Qualitative Results" />
 
-          <Title anchor="control" name="Control" variant={{ componet: 'h3', variant: 'h5' }} />
-          <Typography variant="h6" align="left" paragraph>
-            Here you can browse the results of our model in comparison to state-of-the-arts
-            by choosing the translation tasks for different datasets,
-            content image ID (from 1 to 25), and style image ID (from 1 to 10).
+        <Title anchor="control" name="Control" variant={{ componet: 'h3', variant: 'h5' }} />
+        <Typography variant="h6" align="left" paragraph>
+          Here you can browse the results of our model in comparison to state-of-the-arts
+          by choosing the translation tasks for different datasets,
+          content image ID (from 1 to 25), and style image ID (from 1 to 10).
           </Typography>
 
+        <Grid container justify="center" spacing={6}>
+          <Grid item>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="label">Dataset</InputLabel>
+              <Select
+                value={dataset}
+                onChange={handleDatasetChange}
+              >
+                <MenuItem value="dog2cat">Dog → Cat</MenuItem>
+                <MenuItem value="cat2dog">Cat → Dog</MenuItem>
+                <MenuItem value="monet">Photo → Monet</MenuItem>
+                <MenuItem value="portrait">Photo → Portrait</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" gutterBottom>
+              Content Image ID:
+              </Typography>
+            <PinkSlider className={classes.slider}
+              value={imageId}
+              aria-labelledby="discrete-slider"
+              valueLabelDisplay="auto"
+              step={1}
+              marks={content_marks}
+              min={1}
+              max={25}
+              onChange={handleImageChange}
+            />
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" gutterBottom>
+              Style Image ID:
+              </Typography>
+            <PinkSlider className={classes.slider}
+              value={styleId}
+              aria-labelledby="discrete-slider"
+              valueLabelDisplay="auto"
+              step={1}
+              marks={style_marks}
+              min={1}
+              max={10}
+              onChange={handleStylehange}
+            />
+          </Grid>
+          {/* image / style image pair */}
           <Grid container justify="center" spacing={6}>
             <Grid item>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="label">Dataset</InputLabel>
-                <Select
-                  value={dataset}
-                  onChange={handleDatasetChange}
-                >
-                  <MenuItem value="dog2cat">Dog → Cat</MenuItem>
-                  <MenuItem value="cat2dog">Cat → Dog</MenuItem>
-                  <MenuItem value="monet">Photo → Monet</MenuItem>
-                  <MenuItem value="portrait">Photo → Portrait</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1" gutterBottom>
-                Content Image ID:
-              </Typography>
-              <PinkSlider className={classes.slider}
-                value={imageId}
-                aria-labelledby="discrete-slider"
-                valueLabelDisplay="auto"
-                step={1}
-                marks={content_marks}
-                min={1}
-                max={25}
-                onChange={handleImageChange}
+              <ResultImage
+                title="Content Image"
+                src={urlForResult(dataset, 'content', { imageId: imageId })}
               />
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1" gutterBottom>
-                Style Image ID:
-              </Typography>
-              <PinkSlider className={classes.slider}
-                value={styleId}
-                aria-labelledby="discrete-slider"
-                valueLabelDisplay="auto"
-                step={1}
-                marks={style_marks}
-                min={1}
-                max={10}
-                onChange={handleStylehange}
+              <ResultImage
+                title="Style Image"
+                src={urlForResult(dataset, 'style', { styleId: styleId })}
               />
-            </Grid>
-            {/* image / style image pair */}
-            <Grid container justify="center" spacing={6}>
-              <Grid item>
-                <ResultImage
-                  title="Content Image"
-                  src={urlForResult(dataset, 'content', {imageId: imageId})}
-                />
-              </Grid>
-              <Grid item>
-                <ResultImage
-                  title="Style Image"
-                  src={urlForResult(dataset, 'style', {styleId: styleId})}
-                />
-              </Grid>
             </Grid>
           </Grid>
+        </Grid>
 
-          <Title anchor="result" name="Result" variant={{ componet: 'h3', variant: 'h5' }} />
-          <Typography variant="h6" align="left" paragraph>
-            With the given content and style image,
-            here demonstrates the generated result from MUNIT, GDWCT, MSGAN, and Ours.
+        <Title anchor="result" name="Result" variant={{ componet: 'h3', variant: 'h5' }} />
+        <Typography variant="h6" align="left" paragraph>
+          With the given content and style image,
+          here demonstrates the generated result from MUNIT, GDWCT, MSGAN, and Ours.
           </Typography>
 
-          {/* comparison images */}
-          <Grid container justify="center" spacing={1}>
-            <Grid item xs={6} md={3}>
-              <ResultImage
-                title="MUNIT [1]"
-                src={urlForResult(dataset, 'munit', {imageId: imageId, styleId: styleId})}
-              />
-            </Grid>
-            <Grid item xs={6} md={3}>
-              <ResultImage
-                title="GDWCT [2]"
-                src={urlForResult(dataset, 'gdwct', {imageId: imageId, styleId: styleId})}
-              />
-            </Grid>
-            <Grid item xs={6} md={3}>
-              <ResultImage
-                title="MSGAN [3]"
-                src={urlForResult(dataset, 'msgan', {imageId: imageId, styleId: styleId})}
-              />
-            </Grid>
-            <Grid item xs={6} md={3}>
-              <ResultImage
-                title="Ours"
-                src={urlForResult(dataset, 'ours', {imageId: imageId, styleId: styleId})}
-              />
-            </Grid>
+        {/* comparison images */}
+        <Grid container justify="center" spacing={1}>
+          <Grid item xs={6} md={3}>
+            <ResultImage
+              title="MUNIT [1]"
+              src={urlForResult(dataset, 'munit', { imageId: imageId, styleId: styleId })}
+            />
           </Grid>
-          <br />
+          <Grid item xs={6} md={3}>
+            <ResultImage
+              title="GDWCT [2]"
+              src={urlForResult(dataset, 'gdwct', { imageId: imageId, styleId: styleId })}
+            />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ResultImage
+              title="MSGAN [3]"
+              src={urlForResult(dataset, 'msgan', { imageId: imageId, styleId: styleId })}
+            />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ResultImage
+              title="Ours"
+              src={urlForResult(dataset, 'ours', { imageId: imageId, styleId: styleId })}
+            />
+          </Grid>
+        </Grid>
+        <br />
 
-          <Title anchor="references" name="References" />
-          <Typography align="left" variant="h6" color="inherit" gutterBottom>
-            [1] <Link href="https://arxiv.org/abs/1804.04732" target="_blank" rel="noopener">
+        <Title anchor="references" name="References" />
+        <Typography align="left" variant="h6" color="inherit" gutterBottom>
+          [1] <Link href="https://arxiv.org/abs/1804.04732" target="_blank" rel="noopener">
             Xun Huang, Ming-Yu Liu, Serge Belongie, Jan Kautz, "Multimodal Unsupervised Image-to-Image Translation"</Link>
             , ECCV 2018
           </Typography>
-          <Typography align="left" variant="h6" color="inherit" gutterBottom>
-            [2] <Link href="https://arxiv.org/abs/1812.09912" target="_blank" rel="noopener">
+        <Typography align="left" variant="h6" color="inherit" gutterBottom>
+          [2] <Link href="https://arxiv.org/abs/1812.09912" target="_blank" rel="noopener">
             Wonwoong Cho, Sungha Choi, David Keetae Park, Inkyu Shin, Jaegul Choo, "Image-to-Image Translation via Group-wise Deep Whitening-and-Coloring Transformation"</Link>
             , CVPR 2019
           </Typography>
-          <Typography align="left" variant="h6" color="inherit" gutterBottom>
-            [3] <Link href="https://arxiv.org/abs/1903.05628" target="_blank" rel="noopener">
+        <Typography align="left" variant="h6" color="inherit" gutterBottom>
+          [3] <Link href="https://arxiv.org/abs/1903.05628" target="_blank" rel="noopener">
             Qi Mao, Hsin-Ying Lee, Hung-Yu Tseng, Siwei Ma, and Ming-Hsuan Yang, "Mode Seeking Generative Adversarial Networks for Diverse Image Synthesis"</Link>
             , CVPR 2019
           </Typography>
-          <Footer />
-        </Container>
-      </div>
-      </StickyContainer>
-    </ThemeProvider>
+        <Footer />
+      </Container>
+    </div>
   );
 }
 
