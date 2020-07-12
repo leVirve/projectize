@@ -6,7 +6,8 @@ import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography';
 import { Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem, Box } from '@material-ui/core';
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+
 import Image from 'material-ui-image';
 import GithubCorner from 'react-github-corner';
 import { StickyContainer, Sticky } from 'react-sticky';
@@ -24,6 +25,47 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 200,
   },
 }));
+
+const PinkSlider = withStyles({
+  root: {
+    color: "#F08080",
+    height: 8
+  },
+  thumb: {
+    height: 12,
+    width: 12,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+  },
+  valueLabel: {
+    left: "calc(-12px)"
+  },
+  mark: {
+    backgroundColor: "#FFB6C1",
+    height:3,
+    borderRadius: 2,
+  },
+  track: {
+    height: 4,
+    borderRadius: 2,
+    background: "linear-gradient(87deg, #FE6B8B 30%, #FF8E63 90%)",
+  },
+  rail: {
+    height: 4,
+    borderRadius: 2,
+    background: "linear-gradient(87deg, #FE6B8B 30%, #FF8E63 90%)",
+  }
+})(Slider);
+
+var content_marks = [];
+for (var i = 2; i < 25; i=i+2) {
+  content_marks.push({value: i});
+};
+
+var style_marks = [];
+for (var i = 2; i < 10; i++) {
+  style_marks.push({value: i});
+};
 
 const theme = createMuiTheme({
   typography: {
@@ -79,7 +121,7 @@ function ResultImage(props) {
       <Image
         color='transparent'
         style={{ paddingTop: 10 }}
-        imageStyle={{ height: 'inherit', width: 'inherit', left: 'auto', position: 'relative' }}
+        imageStyle={{ height: '235px', width: 'inherit', left: 'auto', position: 'relative' }}
         src={src}
       />
     </Box>
@@ -134,10 +176,10 @@ function App() {
                   value={dataset}
                   onChange={handleDatasetChange}
                 >
-                  <MenuItem value="dog2cat">Dog to Cat</MenuItem>
-                  <MenuItem value="cat2dog">Cat to Dog</MenuItem>
-                  <MenuItem value="monet">Photo to Monet</MenuItem>
-                  <MenuItem value="portrait">Photo to Portrait</MenuItem>
+                  <MenuItem value="dog2cat">Dog → Cat</MenuItem>
+                  <MenuItem value="cat2dog">Cat → Dog</MenuItem>
+                  <MenuItem value="monet">Photo → Monet</MenuItem>
+                  <MenuItem value="portrait">Photo → Portrait</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -145,12 +187,12 @@ function App() {
               <Typography variant="subtitle1" gutterBottom>
                 Content Image ID:
               </Typography>
-              <Slider className={classes.slider}
+              <PinkSlider className={classes.slider}
                 value={imageId}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
                 step={1}
-                marks
+                marks={content_marks}
                 min={1}
                 max={25}
                 onChange={handleImageChange}
@@ -160,12 +202,12 @@ function App() {
               <Typography variant="subtitle1" gutterBottom>
                 Style Image ID:
               </Typography>
-              <Slider className={classes.slider}
+              <PinkSlider className={classes.slider}
                 value={styleId}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
                 step={1}
-                marks
+                marks={style_marks}
                 min={1}
                 max={10}
                 onChange={handleStylehange}
