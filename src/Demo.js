@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
 import './App.css';
 
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography';
-import { Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem } from '@material-ui/core';
+import { Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem, Box } from '@material-ui/core';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
 import GithubCorner from 'react-github-corner';
@@ -22,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 200,
   },
-  cardheight: {
-    height: 200
-  }
 }));
 
 const theme = createMuiTheme({
@@ -67,6 +65,29 @@ function zeroPad(num, numZeros) {
   return zeroString+n;
 }
 
+function ResultImage(props) {
+  const { src, title } = props;
+
+  return (
+    <Box>
+      <Typography variant="subtitle1" align="center" >
+        {title}
+      </Typography>
+      <Image
+        color='transparent'
+        style={{ paddingTop: 10 }}
+        imageStyle={{ height: 'inherit', width: 'inherit', left: 'auto', position: 'relative' }}
+        src={src}
+      />
+    </Box>
+  );
+}
+
+ResultImage.propTypes = {
+  src: PropTypes.string,
+  title: PropTypes.string,
+};
+
 function App() {
   const classes = useStyles();
   const [imageId, setImageId] = useState(1);
@@ -77,11 +98,11 @@ function App() {
     setDataset(event.target.value);
   };
 
-  const handleImageChange = (event, newValue) => {
+  const handleImageChange = (_event, newValue) => {
     setImageId(newValue);
   };
 
-  const handleStylehange = (event, newValue) => {
+  const handleStylehange = (_event, newValue) => {
     setStyleId(newValue);
   };
 
@@ -97,10 +118,11 @@ function App() {
           <Typography variant="h6" align="left" paragraph>
             Select dataset(task) & content image id (from 1 to 25) & style image id (from 1 to 10).
           </Typography>
+
           <Grid container justify="center" spacing={6}>
             <Grid item>
               <FormControl className={classes.formControl}>
-              <InputLabel id="label">Dataset</InputLabel>
+                <InputLabel id="label">Dataset</InputLabel>
                 <Select
                   value={dataset}
                   onChange={handleDatasetChange}
@@ -150,55 +172,44 @@ function App() {
           <Typography variant="h6" align="left" paragraph>
             Given the content and style image, show the generated result from MUNIT, GDWCT, MSGAN, and ours.
           </Typography>
+
           <Grid container justify="center" spacing={6}>
-            <Grid item xs={6} md={3}>
-              <Typography variant="subtitle1" align="center" >
-                Content Image
-              </Typography>
-              <Image
+            <Grid item>
+              <ResultImage
+                title="Content Image"
                 src={'/demo_compared/' + dataset + '/content_' + zeroPad(imageId, 2) + '.jpg'}
               />
             </Grid>
-            <Grid item xs={6} md={3}>
-              <Typography variant="subtitle1" align="center" >
-                Style Image
-              </Typography>
-              <Image
+            <Grid item>
+              <ResultImage
+                title="Style Image"
                 src={'/demo_compared/' + dataset + '/style_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={3} md={3}>
-              <Typography variant="subtitle1" align="center" >
-                MUNIT [1]
-              </Typography>
-              <Image
+            <Grid item xs={6} md={3}>
+              <ResultImage
+                title="MUNIT [1]"
                 src={'/demo_compared/' + dataset + '/munit_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
-            <Grid item xs={3} md={3}>
-              <Typography variant="subtitle1" align="center" >
-                GDWCT [2]
-              </Typography>
-              <Image
+            <Grid item xs={6} md={3}>
+              <ResultImage
+                title="GDWCT [2]"
                 src={'/demo_compared/' + dataset + '/gdwct_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
-            <Grid item xs={3} md={3}>
-              <Typography variant="subtitle1" align="center" >
-                MSGAN [3]
-              </Typography>
-              <Image
+            <Grid item xs={6} md={3}>
+              <ResultImage
+                title="MSGAN [3]"
                 src={'/demo_compared/' + dataset + '/msgan_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
-            <Grid item xs={3} md={3}>
-              <Typography variant="subtitle1" align="center" >
-                Ours
-              </Typography>
-              <Image
+            <Grid item xs={6} md={3}>
+              <ResultImage
+                title="Ours"
                 src={'/demo_compared/' + dataset + '/ours_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
               />
             </Grid>
