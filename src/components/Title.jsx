@@ -16,11 +16,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Title(props) {
   const classes = useStyles();
-  const { name, anchor } = props;
+  const { name, anchor, variant } = props;
 
   return (
     <Box className={classes.title} id={anchor}>
-      <Typography className={classes.text} align="left" component="h2" variant="h4" gutterBottom>
+      <Typography className={classes.text} align="left"
+       component={variant.component} variant={variant.variant} gutterBottom>
         {name}
       </Typography>
       <Divider />
@@ -31,4 +32,15 @@ export default function Title(props) {
 Title.propTypes = {
   name: PropTypes.string,
   anchor: PropTypes.string,
+  variant: PropTypes.shape(
+    PropTypes.string,
+    PropTypes.string
+  ),
 };
+
+Title.defaultProps = {
+  variant: {
+    component: 'h2',
+    variant: 'h4',
+  }
+}

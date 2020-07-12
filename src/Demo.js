@@ -45,24 +45,27 @@ const theme = createMuiTheme({
 
 const sections = [
   { title: 'Home', url: '/' },
-  // TODO: hash will be re-do by route
-  { title: 'Select', url: '/demo/#select' },
-  { title: 'Result', url: '/demo/#result' },
-  { title: 'References', url: '/demo/#references' },
+  { title: 'Control', url: '#control' },
+  { title: 'Result', url: '#result' },
+  { title: 'References', url: '#references' },
 ];
 
-function valuetext(value) {
-  return `${value}`;
+const publicResultFolder = '/demo_compared';
+
+function urlForResult(dataset, prefix, {imageId, styleId}) {
+  let prefixUrl = `${publicResultFolder}/${dataset}`;
+  if (imageId === undefined)
+    return `${prefixUrl}/${prefix}_${zeroPad(styleId, 2)}.jpg`;
+  else if (styleId === undefined)
+    return `${prefixUrl}/${prefix}_${zeroPad(imageId, 2)}.jpg`;
+  else
+    return `${prefixUrl}/${prefix}_${zeroPad(imageId, 2)}_${zeroPad(styleId, 2)}.jpg`;
 }
 
 function zeroPad(num, numZeros) {
-  var n = Math.abs(num);
-  var zeros = Math.max(0, numZeros - Math.floor(n).toString().length );
-  var zeroString = Math.pow(10,zeros).toString().substr(1);
-  if( num < 0 ) {
-      zeroString = '-' + zeroString;
-  }
-  return zeroString+n;
+  let zeros = Math.max(0, numZeros - num.toString().length);
+  let zeroString = Math.pow(10,zeros).toString().substr(1);
+  return zeroString+num;
 }
 
 function ResultImage(props) {
@@ -113,10 +116,14 @@ function App() {
         <Sticky>{({ style }) => <GithubCorner style={style} href="https://github.com/acht7111020/DSMAP" />}</Sticky>
       <div className="App">
         <Container maxWidth="lg">
-          <Header title="Qualitative Results" sections={sections} />
-          <Title anchor="select" name="Select" />
+          <Header title="DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers" sections={sections} />
+          <Title name="Qualitative Results" />
+
+          <Title anchor="control" name="Control" variant={{ componet: 'h3', variant: 'h5' }} />
           <Typography variant="h6" align="left" paragraph>
-            Select dataset(task) & content image id (from 1 to 25) & style image id (from 1 to 10).
+            Here you can browse the results of our model in comparison to state-of-the-arts
+            by choosing the translation tasks for different datasets,
+            content image ID (from 1 to 25), and style image ID (from 1 to 10).
           </Typography>
 
           <Grid container justify="center" spacing={6}>
@@ -136,11 +143,10 @@ function App() {
             </Grid>
             <Grid item>
               <Typography variant="subtitle1" gutterBottom>
-                Content Image id:
+                Content Image ID:
               </Typography>
               <Slider className={classes.slider}
                 value={imageId}
-                getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
                 step={1}
@@ -152,11 +158,10 @@ function App() {
             </Grid>
             <Grid item>
               <Typography variant="subtitle1" gutterBottom>
-                Style Image id:
+                Style Image ID:
               </Typography>
               <Slider className={classes.slider}
                 value={styleId}
-                getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider"
                 valueLabelDisplay="auto"
                 step={1}
@@ -166,55 +171,57 @@ function App() {
                 onChange={handleStylehange}
               />
             </Grid>
+            {/* image / style image pair */}
+            <Grid container justify="center" spacing={6}>
+              <Grid item>
+                <ResultImage
+                  title="Content Image"
+                  src={urlForResult(dataset, 'content', {imageId: imageId})}
+                />
+              </Grid>
+              <Grid item>
+                <ResultImage
+                  title="Style Image"
+                  src={urlForResult(dataset, 'style', {styleId: styleId})}
+                />
+              </Grid>
+            </Grid>
           </Grid>
 
-          <Title anchor="result" name="Result" />
+          <Title anchor="result" name="Result" variant={{ componet: 'h3', variant: 'h5' }} />
           <Typography variant="h6" align="left" paragraph>
-            Given the content and style image, show the generated result from MUNIT, GDWCT, MSGAN, and ours.
+            With the given content and style image,
+            here demonstrates the generated result from MUNIT, GDWCT, MSGAN, and Ours.
           </Typography>
 
-          <Grid container justify="center" spacing={6}>
-            <Grid item>
-              <ResultImage
-                title="Content Image"
-                src={'/demo_compared/' + dataset + '/content_' + zeroPad(imageId, 2) + '.jpg'}
-              />
-            </Grid>
-            <Grid item>
-              <ResultImage
-                title="Style Image"
-                src={'/demo_compared/' + dataset + '/style_' + zeroPad(styleId, 2) + '.jpg'}
-              />
-            </Grid>
-          </Grid>
-
+          {/* comparison images */}
           <Grid container justify="center" spacing={1}>
             <Grid item xs={6} md={3}>
               <ResultImage
                 title="MUNIT [1]"
-                src={'/demo_compared/' + dataset + '/munit_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
+                src={urlForResult(dataset, 'munit', {imageId: imageId, styleId: styleId})}
               />
             </Grid>
             <Grid item xs={6} md={3}>
               <ResultImage
                 title="GDWCT [2]"
-                src={'/demo_compared/' + dataset + '/gdwct_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
+                src={urlForResult(dataset, 'gdwct', {imageId: imageId, styleId: styleId})}
               />
             </Grid>
             <Grid item xs={6} md={3}>
               <ResultImage
                 title="MSGAN [3]"
-                src={'/demo_compared/' + dataset + '/msgan_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
+                src={urlForResult(dataset, 'msgan', {imageId: imageId, styleId: styleId})}
               />
             </Grid>
             <Grid item xs={6} md={3}>
               <ResultImage
                 title="Ours"
-                src={'/demo_compared/' + dataset + '/ours_' + zeroPad(imageId, 2) + '_' + zeroPad(styleId, 2) + '.jpg'}
+                src={urlForResult(dataset, 'ours', {imageId: imageId, styleId: styleId})}
               />
             </Grid>
           </Grid>
-
+          <br />
 
           <Title anchor="references" name="References" />
           <Typography align="left" variant="h6" color="inherit" gutterBottom>
