@@ -126,7 +126,7 @@ function App() {
     <div className="App">
       <Container maxWidth="lg">
         <Header title={project.paperName} sections={sections} />
-        <Title name="Qualitative Results" />
+        {/* <Title name="Qualitative Results" /> */}
 
         <Title anchor="control" name="Control" variant={{ componet: 'h3', variant: 'h5' }} />
         <Typography variant="h6" align="left" paragraph>
@@ -233,18 +233,18 @@ function App() {
         </Grid>
         <br />
 
-        <Title anchor="references" name="References" />
-        <Typography align="left" variant="h6" color="inherit" gutterBottom>
+        <Title anchor="references" name="References" variant={{ componet: 'h3', variant: 'h5' }}/>
+        <Typography align="left" variant="body1" color="inherit" gutterBottom>
           [1] <Link href="https://arxiv.org/abs/1804.04732" target="_blank" rel="noopener">
             Xun Huang, Ming-Yu Liu, Serge Belongie, Jan Kautz, "Multimodal Unsupervised Image-to-Image Translation"</Link>
-            , ECCV 2018
-        </Typography>
-        <Typography align="left" variant="h6" color="inherit" gutterBottom>
+            , ECCV 2018 <br/>
+        {/* </Typography>
+        <Typography align="left" variant="h6" color="inherit" gutterBottom> */}
           [2] <Link href="https://arxiv.org/abs/1812.09912" target="_blank" rel="noopener">
             Wonwoong Cho, Sungha Choi, David Keetae Park, Inkyu Shin, Jaegul Choo, "Image-to-Image Translation via Group-wise Deep Whitening-and-Coloring Transformation"</Link>
-            , CVPR 2019
-        </Typography>
-        <Typography align="left" variant="h6" color="inherit" gutterBottom>
+            , CVPR 2019 <br/>
+        {/* </Typography>
+        <Typography align="left" variant="h6" color="inherit" gutterBottom> */}
           [3] <Link href="https://arxiv.org/abs/1903.05628" target="_blank" rel="noopener">
             Qi Mao, Hsin-Ying Lee, Hung-Yu Tseng, Siwei Ma, and Ming-Hsuan Yang, "Mode Seeking Generative Adversarial Networks for Diverse Image Synthesis"</Link>
             , CVPR 2019

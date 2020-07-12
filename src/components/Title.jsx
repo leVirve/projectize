@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   title: {
     padding: theme.spacing(3, 0),
+    margin: theme.spacing(6, 0, 0, 0),
   },
   text: {
     fontFamily: 'Source Serif Pro',
