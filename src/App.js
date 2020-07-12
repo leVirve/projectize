@@ -13,7 +13,7 @@ import {
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { project, authors, affiliations } from './variable';
+import { project, authors, affiliations, bibtex } from './variable';
 import Header from './components/Headers.jsx';
 import Title from './components/Title.jsx';
 import Author from './components/Author.jsx';
@@ -88,15 +88,10 @@ function App() {
         <Typography align="left" variant="h6" color="inherit" gutterBottom>
           {`Hsin-Yu Chang, Zhixiang Wang, and Yung-Yu Chuang, "Domain-Specific Mappings for Generative Adversarial Style Transfers", in Proceedings of the European Conference on Computer Vision (ECCV), 2020`}
         </Typography>
-        <Chip label="Bibtex" variant="outlined" color="primary" />
+        <Chip label="BibTeX" variant="outlined" color="primary" />
         <Paper elevation={0} className={classes.bibtexSpan}>
           <Typography align="left" variant="h6" color="inherit" gutterBottom>
-            <pre style={{ overflow: 'auto' }}>{`@inproceedings{Liu-Learning-CVPR-2020,
-    author    = {Liu, Yu-Lun and Lai, Wei-Sheng and Yang, Ming-Hsuan and Chuang, Yung-Yu and Huang, Jia-Bin},
-    title     = {Learning to See Through Obstructions},
-    booktitle = {IEEE Conference on Computer Vision and Pattern Recognition},
-    year      = {2020}
-}`}</pre>
+            <pre style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>{bibtex}</pre>
           </Typography>
         </Paper>
 

@@ -24,10 +24,11 @@ export default function Author(props) {
       <Grid container justify="center" className={classes.authorRoot} spacing={2}>
         {authors.map((author, index) => (
             <Grid item key={index}>
-              <Typography variant="h6">
+              <Typography component="h3" variant="h6">
                 <Link href={author.url}>
-                  {author.name}<sup>{author.affiliation}</sup>
+                  {author.name}
                 </Link>
+                <sup>{author.affiliation}</sup>
               </Typography>
             </Grid>
           ))}
@@ -35,10 +36,8 @@ export default function Author(props) {
       <Grid container justify="center" className={classes.affiliationRoot} spacing={2}>
         {affiliations.map((affiliation, index) => (
           <Grid item key={index}>
-            <Typography variant="h6">
-              {/* <Link href={affiliation.url}> */}
-                {affiliation.name}<sup>{affiliation.number}</sup>
-              {/* </Link> */}
+            <Typography component="h4" variant="h6">
+              {affiliation.name}<sup>{affiliation.number}</sup>
             </Typography>
           </Grid>
         ))}

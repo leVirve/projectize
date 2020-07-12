@@ -10,12 +10,19 @@ export const project = {
 };
 
 export const authors = [
-    { name: 'Hsin-Yu Chang', url: 'http://www.cmlab.csie.ntu.edu.tw/~hsinyu1020/', affiliation: '1' },
-    { name: 'Zhixiang Wang', url: 'http://www.cmlab.csie.ntu.edu.tw/~r06944046/', affiliation: '1' },
-    { name: 'Yung-Yu Chuang', url: 'https://www.csie.ntu.edu.tw/~cyy/', affiliation: '1' },
+    { name: 'Hsin-Yu Chang', url: 'http://www.cmlab.csie.ntu.edu.tw/~hsinyu1020/', affiliation: '' },
+    { name: 'Zhixiang Wang', url: 'http://www.cmlab.csie.ntu.edu.tw/~r06944046/', affiliation: '' },
+    { name: 'Yung-Yu Chuang', url: 'https://www.csie.ntu.edu.tw/~cyy/', affiliation: '' },
 ];
 
 export const affiliations = [
-    { number: '1', name: 'National Taiwan University', url: '' },
+    { number: '', name: 'National Taiwan University', url: '' },
     // { number: '2', name: 'MediaTek Inc.', url: '' },
 ];
+
+export const bibtex = `@inproceedings{Liu-Learning-CVPR-2020,
+    author    = {Liu, Yu-Lun and Lai, Wei-Sheng and Yang, Ming-Hsuan and Chuang, Yung-Yu and Huang, Jia-Bin},
+    title     = {Learning to See Through Obstructions},
+    booktitle = {IEEE Conference on Computer Vision and Pattern Recognition},
+    year      = {2020}
+}`
