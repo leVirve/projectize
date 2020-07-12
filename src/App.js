@@ -134,7 +134,7 @@ function App() {
           <Chip label="Bibtex" variant="outlined" color="primary" />
           <Paper elevation={0} className={classes.bibtexSpan}>
             <Typography align="left" variant="h6" color="inherit" gutterBottom>
-              <pre>{`@inproceedings{Liu-Learning-CVPR-2020,
+              <pre style={{ overflow: 'auto' }}>{`@inproceedings{Liu-Learning-CVPR-2020,
     author    = {Liu, Yu-Lun and Lai, Wei-Sheng and Yang, Ming-Hsuan and Chuang, Yung-Yu and Huang, Jia-Bin},
     title     = {Learning to See Through Obstructions},
     booktitle = {IEEE Conference on Computer Vision and Pattern Recognition},
