@@ -3,17 +3,17 @@ import './App.css';
 
 import teaserImage from './images/teaser.png';
 import demoImage from './images/demo.png';
-import paperThumbImage from './images/thumb.jpg';
 
-import Chip from '@material-ui/core/Chip';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import { Paper, CardMedia } from '@material-ui/core';
-import { GitHub as GitHubIcon, Storage as StorageIcon, YouTube as YouTubeIcon, PictureAsPdf as PictureAsPdfIcon } from '@material-ui/icons';
+import { Chip, Container, Grid, Link, Typography, Paper } from '@material-ui/core';
+import {
+  GitHub as GitHubIcon,
+  Storage as StorageIcon,
+  YouTube as YouTubeIcon,
+  PictureAsPdf as PictureAsPdfIcon
+} from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { project, authors, affiliations } from './variable';
 import Header from './components/Headers.jsx';
 import Title from './components/Title.jsx';
 import Author from './components/Author.jsx';
@@ -37,16 +37,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-// const paperName = "Domain-Specific Mappings for Generative Adversarial Style Transfers";
-const teaserBanner = {
-  image: { teaserImage },
-  elevation: 0,
-}
-const paperThumbBanner = {
-  image: { paperThumbImage },
-  link: 'https://arxiv.org/abs/2004.01180',
-  title: "Learning to See Through Obstructions, CVPR 2020 (arxiv)",
-}
 const sections = [
   { title: 'Home', url: '#' },
   { title: 'Abstract', url: '#abstract' },
@@ -55,15 +45,7 @@ const sections = [
   { title: 'Results', url: '/#results' },
   { title: 'Acknowledgments', url: '#acknowledgments' },
 ];
-const authors = [
-  { name: 'Hsin-Yu Chang', url: 'http://www.cmlab.csie.ntu.edu.tw/~hsinyu1020/', affiliation: '1,2' },
-  { name: 'Zhixiang Wang', url: 'http://www.cmlab.csie.ntu.edu.tw/~r06944046/', affiliation: '1' },
-  { name: 'Yung-Yu Chuang', url: 'https://www.csie.ntu.edu.tw/~cyy/', affiliation: '1' },
-]
-const affiliations = [
-  { number: '1', name: 'National Taiwan University', url: '' },
-  { number: '2', name: 'MediaTek Inc.', url: '' },
-]
+
 
 function App() {
   const classes = useStyles();
@@ -71,7 +53,7 @@ function App() {
   return (
     <div className="App">
       <Container maxWidth="lg">
-        <Header title="DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers" sections={sections} />
+        <Header title={project.paperName} sections={sections} />
         <Typography component="h1" variant="h3" gutterBottom className={classes.titleHead}>
           Domain-Specific Mappings <br />for Generative Adversarial Style Transfers
             <br />
@@ -79,7 +61,7 @@ function App() {
           <Chip label="Style Transfer" />
         </Typography>
         <Author authors={authors} affiliations={affiliations} />
-        <Banner metadata={teaserBanner} imageSrc={teaserImage} />
+        <Banner metadata={{ elevation: 0 }} imageSrc={teaserImage} />
         <Button text="Download Code / Results" link="#download" />
 
         <Title anchor="abstract" name="Abstract" />
@@ -90,7 +72,7 @@ function App() {
           which could compromise the content representation power. For addressing this issue, this paper leverages domain-specific mapping functions for remapping latent features in the shared content space to domain-specific content spaces.
           This way, images can be encoded more properly for style transfer.
           Experiments show that the proposed method outperforms previous style transfer methods, particularly on challenging scenarios that would require semantic correspondences between images.
-          </Typography>
+        </Typography>
 
         <Title anchor="paper" name="Paper" />
         {/* <Chip label="arxiv" variant="outlined" /> */}
@@ -152,8 +134,8 @@ function App() {
           <Link href="/demo" target="_blank" rel="noopener">
             <Typography variant="h6" color="inherit" gutterBottom>
               <img src={demoImage} height="150px" /> <br />
-                Demo Website
-              </Typography>
+              Demo Website
+            </Typography>
           </Link>
         </div>
 
@@ -162,7 +144,7 @@ function App() {
           We thank <Link href="https://github.com/leVirve">Salas Lin</Link> for providing this template! <br />
           We thank <Link href="https://github.com/HsinYingLee/DRIT">DRIT</Link> and <Link href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix">CycleGAN</Link> for providing their datasets. <br />
           Part of our codes are based on <Link href="https://github.com/NVlabs/MUNIT">MUNIT</Link> and <Link href="https://github.com/HelenMao/MSGAN">MSGAN</Link>.
-          </Typography>
+        </Typography>
 
         <Footer />
       </Container>

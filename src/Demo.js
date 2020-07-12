@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import PropTypes from "prop-types";
 import './App.css';
 
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import { Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem, Box } from '@material-ui/core';
-import { createMuiTheme, withStyles, makeStyles } from '@material-ui/core/styles';
+import {
+  Container, Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem, Typography
+} from '@material-ui/core';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 
-import Image from 'material-ui-image';
-
+import { project } from './variable';
 import Header from './components/Headers.jsx';
 import Footer from './components/Footer.jsx';
 import Title from './components/Title.jsx';
+import ImageContainer from './components/ImageContainer.jsx';
 
 const useStyles = makeStyles((theme) => ({
   slider: {
@@ -54,33 +53,15 @@ const PinkSlider = withStyles({
   }
 })(Slider);
 
-var content_marks = [];
-for (var i = 2; i < 25; i = i + 2) {
-  content_marks.push({ value: i });
-};
+let contentMarks = [];
+for (let i = 2; i < 25; i = i + 2) {
+  contentMarks.push({ value: i });
+}
 
-var style_marks = [];
-for (var i = 2; i < 10; i++) {
-  style_marks.push({ value: i });
-};
-
-const theme = createMuiTheme({
-  typography: {
-    fontFamily: [
-      'Source Sans Pro',
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
-});
+let styleMarks = [];
+for (let i = 2; i < 10; i++) {
+  styleMarks.push({ value: i });
+}
 
 const sections = [
   { title: 'Home', url: '/' },
@@ -107,29 +88,6 @@ function zeroPad(num, numZeros) {
   return zeroString + num;
 }
 
-function ResultImage(props) {
-  const { src, title } = props;
-
-  return (
-    <Box>
-      <Typography variant="subtitle1" align="center" >
-        {title}
-      </Typography>
-      <Image
-        color='transparent'
-        style={{ paddingTop: 10 }}
-        imageStyle={{ height: '235px', width: 'inherit', left: 'auto', position: 'relative' }}
-        src={src}
-      />
-    </Box>
-  );
-}
-
-ResultImage.propTypes = {
-  src: PropTypes.string,
-  title: PropTypes.string,
-};
-
 function App() {
   const classes = useStyles();
   const [imageId, setImageId] = useState(1);
@@ -144,14 +102,14 @@ function App() {
     setImageId(newValue);
   };
 
-  const handleStylehange = (_event, newValue) => {
+  const handleStyleChange = (_event, newValue) => {
     setStyleId(newValue);
   };
 
   return (
     <div className="App">
       <Container maxWidth="lg">
-        <Header title="DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers" sections={sections} />
+        <Header title={project.paperName} sections={sections} />
         <Title name="Qualitative Results" />
 
         <Title anchor="control" name="Control" variant={{ componet: 'h3', variant: 'h5' }} />
@@ -159,7 +117,7 @@ function App() {
           Here you can browse the results of our model in comparison to state-of-the-arts
           by choosing the translation tasks for different datasets,
           content image ID (from 1 to 25), and style image ID (from 1 to 10).
-          </Typography>
+        </Typography>
 
         <Grid container justify="center" spacing={6}>
           <Grid item>
@@ -185,7 +143,7 @@ function App() {
               aria-labelledby="discrete-slider"
               valueLabelDisplay="auto"
               step={1}
-              marks={content_marks}
+              marks={contentMarks}
               min={1}
               max={25}
               onChange={handleImageChange}
@@ -200,22 +158,22 @@ function App() {
               aria-labelledby="discrete-slider"
               valueLabelDisplay="auto"
               step={1}
-              marks={style_marks}
+              marks={styleMarks}
               min={1}
               max={10}
-              onChange={handleStylehange}
+              onChange={handleStyleChange}
             />
           </Grid>
           {/* image / style image pair */}
           <Grid container justify="center" spacing={6}>
             <Grid item>
-              <ResultImage
+              <ImageContainer
                 title="Content Image"
                 src={urlForResult(dataset, 'content', { imageId: imageId })}
               />
             </Grid>
             <Grid item>
-              <ResultImage
+              <ImageContainer
                 title="Style Image"
                 src={urlForResult(dataset, 'style', { styleId: styleId })}
               />
@@ -227,30 +185,30 @@ function App() {
         <Typography variant="h6" align="left" paragraph>
           With the given content and style image,
           here demonstrates the generated result from MUNIT, GDWCT, MSGAN, and Ours.
-          </Typography>
+        </Typography>
 
         {/* comparison images */}
         <Grid container justify="center" spacing={1}>
           <Grid item xs={6} md={3}>
-            <ResultImage
+            <ImageContainer
               title="MUNIT [1]"
               src={urlForResult(dataset, 'munit', { imageId: imageId, styleId: styleId })}
             />
           </Grid>
           <Grid item xs={6} md={3}>
-            <ResultImage
+            <ImageContainer
               title="GDWCT [2]"
               src={urlForResult(dataset, 'gdwct', { imageId: imageId, styleId: styleId })}
             />
           </Grid>
           <Grid item xs={6} md={3}>
-            <ResultImage
+            <ImageContainer
               title="MSGAN [3]"
               src={urlForResult(dataset, 'msgan', { imageId: imageId, styleId: styleId })}
             />
           </Grid>
           <Grid item xs={6} md={3}>
-            <ResultImage
+            <ImageContainer
               title="Ours"
               src={urlForResult(dataset, 'ours', { imageId: imageId, styleId: styleId })}
             />
@@ -263,17 +221,17 @@ function App() {
           [1] <Link href="https://arxiv.org/abs/1804.04732" target="_blank" rel="noopener">
             Xun Huang, Ming-Yu Liu, Serge Belongie, Jan Kautz, "Multimodal Unsupervised Image-to-Image Translation"</Link>
             , ECCV 2018
-          </Typography>
+        </Typography>
         <Typography align="left" variant="h6" color="inherit" gutterBottom>
           [2] <Link href="https://arxiv.org/abs/1812.09912" target="_blank" rel="noopener">
             Wonwoong Cho, Sungha Choi, David Keetae Park, Inkyu Shin, Jaegul Choo, "Image-to-Image Translation via Group-wise Deep Whitening-and-Coloring Transformation"</Link>
             , CVPR 2019
-          </Typography>
+        </Typography>
         <Typography align="left" variant="h6" color="inherit" gutterBottom>
           [3] <Link href="https://arxiv.org/abs/1903.05628" target="_blank" rel="noopener">
             Qi Mao, Hsin-Ying Lee, Hung-Yu Tseng, Siwei Ma, and Ming-Hsuan Yang, "Mode Seeking Generative Adversarial Networks for Diverse Image Synthesis"</Link>
             , CVPR 2019
-          </Typography>
+        </Typography>
         <Footer />
       </Container>
     </div>
