@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: `1px solid ${theme.palette.divider}`,
     backgroundColor: '#363333',
     color: '#fff',
-    zIndex: -87,
+    zIndex: 0,
   },
   toolbarTitle: {
     flex: 1,
@@ -18,8 +18,10 @@ const useStyles = makeStyles((theme) => ({
   toolbarSecondary: {
     justifyContent: 'space-between',
     backgroundColor: '#fef1f3',
-    zIndex: -87,
+    zIndex: 0,
     overflowX: 'auto',
+    paddingLeft: theme.spacing(40),
+    paddingRight: theme.spacing(40),
   },
   toolbarLink: {
     padding: theme.spacing(1),

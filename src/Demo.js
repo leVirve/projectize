@@ -124,8 +124,8 @@ function App() {
 
   return (
     <div className="App">
+      <Header title={project.paperName} sections={sections} />
       <Container maxWidth="lg">
-        <Header title={project.paperName} sections={sections} />
         {/* <Title name="Qualitative Results" /> */}
 
         <Title anchor="control" name="Control" variant={{ componet: 'h3', variant: 'h5' }} />
