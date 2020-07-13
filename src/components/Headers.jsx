@@ -16,12 +16,22 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   toolbarSecondary: {
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     backgroundColor: '#fef1f3',
     zIndex: 0,
-    overflowX: 'auto',
-    paddingLeft: theme.spacing(40),
-    paddingRight: theme.spacing(40),
+    '& > a': {
+      padding: theme.spacing(0, 5),
+    },
+    [theme.breakpoints.down('md')]: {
+      '& > a': {
+        padding: theme.spacing(0, 3),
+      },
+    },
+    [theme.breakpoints.down('xs')]: {
+      '& > a': {
+        padding: theme.spacing(0, 1),
+      },
+    }
   },
   toolbarLink: {
     padding: theme.spacing(1),
