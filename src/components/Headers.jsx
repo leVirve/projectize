@@ -8,7 +8,7 @@ import Link from '@material-ui/core/Link';
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundColor: '#363333',
+    backgroundImage: "radial-gradient(circle, rgb(233, 148, 148) 0%, rgb(238, 174, 202) 100%)",
     color: '#fff',
     zIndex: 0,
   },

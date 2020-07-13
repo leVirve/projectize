@@ -27,8 +27,8 @@ import Footer from './components/Footer.jsx';
 const useStyles = makeStyles((theme) => ({
   main: {
     textAlign: 'center',
-    backgroundImage: 'url(/marble_texture_m.jpg)',
-    backgroundSize: 'contain',  // this will stretch, any better solution?
+    // backgroundImage: 'url(/marble_texture_m.jpg)',
+    // backgroundSize: 'cover',  // this will stretch, any better solution?
   },
   titleHead: {
     paddingTop: theme.spacing(8),
