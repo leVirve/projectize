@@ -12,6 +12,8 @@ import {
   PictureAsPdf as PictureAsPdfIcon
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import GithubCorner from 'react-github-corner';
+import Sticky from 'react-stickynode';
 
 import { project, authors, affiliations, bibtex } from './variable';
 import Header from './components/Headers.jsx';
@@ -53,7 +55,10 @@ function App() {
 
   return (
     <div className="App">
-      <Header title={project.paperName} sections={sections} />
+      <Header id="header" title={project.paperName} sections={sections} />
+      <Sticky top='#header'>
+        <GithubCorner href={project.githubPage} />
+      </Sticky>
       <Container maxWidth="lg">
         <Typography component="h1" variant="h3" gutterBottom className={classes.titleHead}>
           Domain-Specific Mappings <br />

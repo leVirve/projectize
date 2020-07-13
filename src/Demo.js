@@ -5,6 +5,8 @@ import {
   Container, Grid, Link, Slider, Select, InputLabel, FormControl, MenuItem, Typography
 } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import GithubCorner from 'react-github-corner';
+import Sticky from 'react-stickynode';
 
 import { project } from './variable';
 import Header from './components/Headers.jsx';
@@ -124,7 +126,10 @@ function App() {
 
   return (
     <div className="App">
-      <Header title={project.paperName} sections={sections} />
+      <Header id="header" title={project.paperName} sections={sections} />
+      <Sticky top='#header'>
+        <GithubCorner href={project.githubPage} />
+      </Sticky>
       <Container maxWidth="lg">
         {/* <Title name="Qualitative Results" /> */}
 

@@ -1,15 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
-import GithubCorner from 'react-github-corner';
-import { StickyContainer, Sticky } from 'react-sticky';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import './index.css';
 import App from './App';
 import Demo from './Demo';
-import { project } from './variable'
 import * as serviceWorker from './serviceWorker';
 
 const theme = createMuiTheme({
@@ -40,16 +37,13 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <StickyContainer>
-      <Sticky>
-        {({ style }) => <GithubCorner style={style} href={project.githubPage} />}
-      </Sticky>
+    <div>
       <CssBaseline />
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Route exact path="/" component={App}></Route>
         <Route exact path="/demo" component={Demo}></Route>
       </BrowserRouter>
-    </StickyContainer>
+    </div>
   </ThemeProvider>
   ,
   document.getElementById('root')
