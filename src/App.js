@@ -25,6 +25,11 @@ import Footer from './components/Footer.jsx';
 
 
 const useStyles = makeStyles((theme) => ({
+  main: {
+    textAlign: 'center',
+    backgroundImage: 'url(/marble_texture_m.jpg)',
+    backgroundSize: 'contain',  // this will stretch, any better solution?
+  },
   titleHead: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(4),
@@ -54,7 +59,7 @@ function App() {
   const classes = useStyles();
 
   return (
-    <div className="App">
+    <div className={classes.main}>
       <Header id="header" title={project.paperName} sections={sections} />
       <Sticky top='#header'>
         <GithubCorner href={project.githubPage} />
