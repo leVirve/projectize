@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import { HashLink } from 'react-router-hash-link';
+
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const { sections, title } = props;
+  const preventDefault = (event) => event.preventDefault();
 
   return (
     <React.Fragment>
@@ -60,11 +63,14 @@ export default function Header(props) {
       <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
         {sections.map((section) => (
           <Link
+            component={HashLink}
+            onClick={preventDefault}
+            variant="subtitle2"
             color="inherit"
             noWrap
+            smooth
+            to={section.url}
             key={section.title}
-            variant="body2"
-            href={section.url}
             className={classes.toolbarLink}
           >
             {section.title}
