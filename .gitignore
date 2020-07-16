@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 
-public/demo_compared
+public/images
 .vscode/
