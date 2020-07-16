@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -39,10 +39,10 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <div>
       <CssBaseline />
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter basename={process.env.PUBLIC_URL}>
         <Route exact path="/" component={App}></Route>
         <Route exact path="/demo" component={Demo}></Route>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   </ThemeProvider>
   ,

@@ -88,7 +88,7 @@ const sections = [
   { title: 'References', url: '#references' },
 ];
 
-const publicResultFolder = '/images/demo_compared';
+const publicResultFolder = process.env.PUBLIC_URL + '/images/demo_compared';
 
 function urlForResult(dataset, prefix, { imageId, styleId }) {
   let prefixUrl = `${publicResultFolder}/${dataset}`;

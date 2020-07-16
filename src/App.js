@@ -69,7 +69,7 @@ function App() {
           <Chip label="Style Transfer" />
         </Typography>
         <Author authors={authors} affiliations={affiliations} />
-        <Banner metadata={{ elevation: 0 }} imageSrc={'/images/teaser.png'} />
+        <Banner metadata={{ elevation: 0 }} imageSrc={process.env.PUBLIC_URL + '/images/teaser.png'} />
         <Button text="Download Code / Results" link="#download" />
 
         <Title anchor="abstract" name="Abstract" />
@@ -135,7 +135,7 @@ function App() {
         <div align="center">
           <Link href="/demo" target="_blank" rel="noopener">
             <Typography variant="h6" color="inherit" gutterBottom>
-              <img src={'./images/demo.png'} height="150px" alt="demo page thumb" /> <br />
+              <img src={process.env.PUBLIC_URL + '/images/demo.png'} height="150px" alt="demo page thumb" /> <br />
               Demo Website
             </Typography>
           </Link>
