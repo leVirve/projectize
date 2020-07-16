@@ -1,9 +1,6 @@
 import React from 'react';
 import './App.css';
 
-import teaserImage from './images/teaser.png';
-import demoImage from './images/demo.png';
-
 import { Chip, Container, Grid, Link, Typography, Paper } from '@material-ui/core';
 import {
   GitHub as GitHubIcon,
@@ -72,7 +69,7 @@ function App() {
           <Chip label="Style Transfer" />
         </Typography>
         <Author authors={authors} affiliations={affiliations} />
-        <Banner metadata={{ elevation: 0 }} imageSrc={teaserImage} />
+        <Banner metadata={{ elevation: 0 }} imageSrc={'/images/teaser.png'} />
         <Button text="Download Code / Results" link="#download" />
 
         <Title anchor="abstract" name="Abstract" />
@@ -138,7 +135,7 @@ function App() {
         <div align="center">
           <Link href="/demo" target="_blank" rel="noopener">
             <Typography variant="h6" color="inherit" gutterBottom>
-              <img src={demoImage} height="150px" alt="demo page thumb" /> <br />
+              <img src={'./images/demo.png'} height="150px" alt="demo page thumb" /> <br />
               Demo Website
             </Typography>
           </Link>
