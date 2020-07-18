@@ -91,9 +91,9 @@ for (let i = 2; i < 10; i += 1) {
 
 const sections = [
   { title: 'Home', url: '/' },
-  { title: 'Control', url: '#control' },
-  { title: 'Result', url: '#result' },
-  { title: 'References', url: '#references' },
+  { title: 'Control', url: '/demo#control' },
+  { title: 'Result', url: '/demo#result' },
+  { title: 'References', url: '/demo#references' },
 ];
 
 const publicResultFolder = `${process.env.PUBLIC_URL}/images/demo_compared`;

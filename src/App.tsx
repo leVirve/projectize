@@ -18,6 +18,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import GithubCorner from 'react-github-corner';
 import Sticky from 'react-stickynode';
+import { Link as ReactLink } from 'react-router-dom';
 
 import { project, authors, affiliations, bibtex } from './variable';
 import Header from './components/Headers';
@@ -180,13 +181,12 @@ function App(): React.ReactElement {
 
         <Title anchor="results" name="Results" />
         <div>
-          <Link
+          {/* <Link
             href={`${process.env.PUBLIC_URL}/#/demo`}
             target="_blank"
             rel="noopener"
-          >
-            {' '}
-            {/* TODO: use react-router Link instead */}
+          > */}
+          <ReactLink to="/demo">
             <Typography variant="h6" color="inherit" gutterBottom>
               <img
                 src={`${process.env.PUBLIC_URL}/images/demo.png`}
@@ -196,7 +196,7 @@ function App(): React.ReactElement {
               <br />
               Demo Website
             </Typography>
-          </Link>
+          </ReactLink>
         </div>
 
         <Title anchor="acknowledgments" name="Acknowledgments" />
