@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface Metadata {
   title: string;
-  link: string;
+  link?: string;
 }
 interface Props {
   metadata?: Metadata;
@@ -30,7 +30,7 @@ export default function Banner(props: Props): React.ReactElement<Props> {
 
   return (
     <Paper elevation={elevation} className={classes.bannerImg}>
-      <Grid container>
+      <Grid alignItems="center" justify="center" container>
         <Link
           href={metadata ? metadata.link : ''}
           target="_blank"

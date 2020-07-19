@@ -55,7 +55,6 @@ const sections = [
   { title: 'Paper', url: '#paper' },
   { title: 'Download', url: '#download' },
   { title: 'Results', url: '#results' },
-  { title: 'Acknowledgments', url: '#acknowledgments' },
 ];
 
 function App(): React.ReactElement {
@@ -103,14 +102,14 @@ function App(): React.ReactElement {
         </Typography>
 
         <Title anchor="paper" name="Paper" />
-        {/* <Chip label="arxiv" variant="outlined" /> */}
-        {/* <Banner metadata={paperThumbBanner} imageSrc={paperThumbImage} /> */}
+        <Chip label="Arxiv" variant="outlined" color="primary" />
         <Grid item>
           <Link href={project.arxivLink} target="_blank" rel="noopener">
-            <PictureAsPdfIcon color="action" style={{ fontSize: 60 }} />
-            <Typography align="center" variant="h6" color="inherit">
-              Arxiv
-            </Typography>
+            <Banner
+              metadata={{ title: project.paperThumbTitle }}
+              elevation={0}
+              imageSrc={process.env.PUBLIC_URL + project.paperThumbImage}
+            />
           </Link>
         </Grid>
 
@@ -140,6 +139,14 @@ function App(): React.ReactElement {
             </Link>
           </Grid>
           <Grid item>
+            <Link href={project.youtubeLink} target="_blank" rel="noopener">
+              <YouTubeIcon color="action" style={{ fontSize: 60 }} />
+              <Typography align="center" variant="h6" color="inherit">
+                Video
+              </Typography>
+            </Link>
+          </Grid>
+          <Grid item>
             <Link
               href={project.supplementaryLink}
               target="_blank"
@@ -157,6 +164,19 @@ function App(): React.ReactElement {
             </Link>
           </Grid>
           <Grid item>
+            <Link href={project.demoZipLink} target="_blank" rel="noopener">
+              <StorageIcon color="action" style={{ fontSize: 60 }} />
+              <Typography
+                align="center"
+                variant="h6"
+                color="inherit"
+                gutterBottom
+              >
+                Demo Results
+              </Typography>
+            </Link>
+          </Grid>
+          <Grid item>
             <Link href={project.resultZipLink} target="_blank" rel="noopener">
               <StorageIcon color="action" style={{ fontSize: 60 }} />
               <Typography
@@ -165,36 +185,23 @@ function App(): React.ReactElement {
                 color="inherit"
                 gutterBottom
               >
-                Results
-              </Typography>
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link href={project.youtubeLink} target="_blank" rel="noopener">
-              <YouTubeIcon color="action" style={{ fontSize: 60 }} />
-              <Typography align="center" variant="h6" color="inherit">
-                Video
+                More Results
               </Typography>
             </Link>
           </Grid>
         </Grid>
 
-        <Title anchor="results" name="Results" />
+        <Title anchor="results" name="Results (Demo website)" />
         <div>
-          {/* <Link
-            href={`${process.env.PUBLIC_URL}/#/demo`}
-            target="_blank"
-            rel="noopener"
-          > */}
           <ReactLink to="/demo">
             <Typography variant="h6" color="inherit" gutterBottom>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/demo.png`}
-                height="150px"
-                alt="demo page thumb"
-              />{' '}
-              <br />
+              <Banner
+                elevation={0}
+                imageSrc={`${process.env.PUBLIC_URL}/images/style_inter.gif`}
+              />
+              {/* <Link target="_blank" rel="noopener"> */}
               Demo Website
+              {/* </Link> */}
             </Typography>
           </ReactLink>
         </div>

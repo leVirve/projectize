@@ -149,8 +149,6 @@ function App(): React.ReactElement {
         <GithubCorner href={project.githubPage} />
       </Sticky>
       <Container maxWidth="lg">
-        {/* <Title name="Qualitative Results" /> */}
-
         <Title
           anchor="control"
           name="Control"
@@ -214,14 +212,14 @@ function App(): React.ReactElement {
             />
           </Grid>
           {/* image / style image pair */}
-          <Grid container justify="center" spacing={6}>
-            <Grid item>
+          <Grid container justify="center" spacing={1}>
+            <Grid item xs={10} md={3}>
               <ImageContainer
                 title="Content Image"
                 src={urlForResult(dataset, 'content', { imageId })}
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={10} md={3}>
               <ImageContainer
                 title="Style Image"
                 src={urlForResult(dataset, 'style', { styleId })}
@@ -238,7 +236,7 @@ function App(): React.ReactElement {
 
         {/* comparison images */}
         <Grid container justify="center" spacing={1}>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={10} md={3}>
             <ImageContainer
               title="MUNIT [1]"
               src={urlForResult(dataset, 'munit', {
@@ -247,7 +245,7 @@ function App(): React.ReactElement {
               })}
             />
           </Grid>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={10} md={3}>
             <ImageContainer
               title="GDWCT [2]"
               src={urlForResult(dataset, 'gdwct', {
@@ -256,7 +254,7 @@ function App(): React.ReactElement {
               })}
             />
           </Grid>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={10} md={3}>
             <ImageContainer
               title="MSGAN [3]"
               src={urlForResult(dataset, 'msgan', {
@@ -265,7 +263,7 @@ function App(): React.ReactElement {
               })}
             />
           </Grid>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={10} md={3}>
             <ImageContainer
               title="Ours"
               src={urlForResult(dataset, 'ours', {
@@ -293,8 +291,6 @@ function App(): React.ReactElement {
             Unsupervised Image-to-Image Translation"`}
           </Link>
           , ECCV 2018 <br />
-          {/* </Typography>
-        <Typography align="left" variant="h6" color="inherit" gutterBottom> */}
           [2]{' '}
           <Link
             href="https://arxiv.org/abs/1812.09912"
@@ -306,8 +302,6 @@ function App(): React.ReactElement {
             Whitening-and-Coloring Transformation"`}
           </Link>
           , CVPR 2019 <br />
-          {/* </Typography>
-        <Typography align="left" variant="h6" color="inherit" gutterBottom> */}
           [3]{' '}
           <Link
             href="https://arxiv.org/abs/1903.05628"

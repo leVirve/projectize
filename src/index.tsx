@@ -35,6 +35,27 @@ const theme = createMuiTheme({
   },
 });
 
+// for mobile phone
+theme.typography.h3 = {
+  fontSize: '1.65rem',
+  lineHeight: '1.167',
+  fontWeight: 400,
+  fontFamily: theme.typography.fontFamily,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '3rem',
+  },
+};
+
+theme.typography.h6 = {
+  fontSize: '1.0rem',
+  lineHeight: '1.6',
+  fontWeight: 500,
+  fontFamily: theme.typography.fontFamily,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.25rem',
+  },
+};
+
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <div>
