@@ -229,10 +229,6 @@ function App(): React.ReactElement {
         </Grid>
 
         <Title anchor="result" name="Result" fontVariant={{ variant: 'h5' }} />
-        <Typography variant="h6" align="left" paragraph>
-          With the given content and style image, here demonstrates the
-          generated result from MUNIT, GDWCT, MSGAN, and Ours.
-        </Typography>
 
         {/* comparison images */}
         <Grid container justify="center" spacing={1}>
