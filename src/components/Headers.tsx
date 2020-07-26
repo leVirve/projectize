@@ -1,16 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import { HashLink } from 'react-router-hash-link';
-
+import { HashLink } from 'react-router-hash-link'; // TODO:
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundImage: "radial-gradient(circle, rgb(233, 148, 148) 0%, rgb(238, 174, 202) 100%)",
+    backgroundImage:
+      'radial-gradient(circle, rgb(233, 148, 148) 0%, rgb(238, 174, 202) 100%)',
     color: '#fff',
     zIndex: 0,
   },
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
       '& > a': {
         padding: theme.spacing(0, 1),
       },
-    }
+    },
   },
   toolbarLink: {
     padding: theme.spacing(1),
@@ -41,13 +40,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header(props) {
+interface SectionItem {
+  url: string;
+  title: string;
+}
+interface Props {
+  id: string;
+  sections: SectionItem[];
+  title: string;
+}
+
+export default function Header(props: Props): React.ReactElement<Props> {
   const classes = useStyles();
-  const { sections, title } = props;
-  const preventDefault = (event) => event.preventDefault();
+  const { id, sections, title } = props;
+  const preventDefault = (event: React.MouseEvent): void =>
+    event.preventDefault();
 
   return (
-    <React.Fragment>
+    <div id={id}>
       <Toolbar className={classes.toolbar}>
         <Typography
           component="h2"
@@ -60,7 +70,11 @@ export default function Header(props) {
           {title}
         </Typography>
       </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+      <Toolbar
+        component="nav"
+        variant="dense"
+        className={classes.toolbarSecondary}
+      >
         {sections.map((section) => (
           <Link
             component={HashLink}
@@ -77,11 +91,6 @@ export default function Header(props) {
           </Link>
         ))}
       </Toolbar>
-    </React.Fragment>
+    </div>
   );
 }
-
-Header.propTypes = {
-  sections: PropTypes.array,
-  title: PropTypes.string,
-};

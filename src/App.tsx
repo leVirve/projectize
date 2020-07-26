@@ -1,25 +1,31 @@
 import React from 'react';
 import './App.css';
 
-import { Chip, Container, Grid, Link, Typography, Paper } from '@material-ui/core';
+import {
+  Chip,
+  Container,
+  Grid,
+  Link,
+  Typography,
+  Paper,
+} from '@material-ui/core';
 import {
   GitHub as GitHubIcon,
   Storage as StorageIcon,
   YouTube as YouTubeIcon,
-  PictureAsPdf as PictureAsPdfIcon
+  PictureAsPdf as PictureAsPdfIcon,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import GithubCorner from 'react-github-corner';
 import Sticky from 'react-stickynode';
 
 import { project, authors, affiliations, bibtex } from './variable';
-import Header from './components/Headers.jsx';
-import Title from './components/Title.jsx';
-import Author from './components/Author.jsx';
-import Banner from './components/Banner.jsx';
-import Button from './components/Button.jsx';
-import Footer from './components/Footer.jsx';
-
+import Header from './components/Headers';
+import Title from './components/Title';
+import Author from './components/Author';
+import Banner from './components/Banner';
+import Button from './components/Button';
+import Footer from './components/Footer';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -51,35 +57,48 @@ const sections = [
   { title: 'Acknowledgments', url: '#acknowledgments' },
 ];
 
-
-function App() {
+function App(): React.ReactElement {
   const classes = useStyles();
 
   return (
     <div className={classes.main}>
       <Header id="header" title={project.paperName} sections={sections} />
-      <Sticky top='#header'>
+      <Sticky top="#header">
         <GithubCorner href={project.githubPage} />
       </Sticky>
       <Container maxWidth="lg">
-        <Typography component="h1" variant="h3" gutterBottom className={classes.titleHead}>
+        <Typography
+          component="h1"
+          variant="h3"
+          gutterBottom
+          className={classes.titleHead}
+        >
           Domain-Specific Mappings <br />
           for Generative Adversarial Style Transfers <br />
           <Chip label="ECCV 2020" />
           <Chip label="Style Transfer" />
         </Typography>
         <Author authors={authors} affiliations={affiliations} />
-        <Banner metadata={{ elevation: 0 }} imageSrc={process.env.PUBLIC_URL + '/images/teaser.png'} />
+        <Banner
+          elevation={0}
+          imageSrc={`${process.env.PUBLIC_URL}/images/teaser.png`}
+        />
         <Button text="Download Code / Results" link="#download" />
 
         <Title anchor="abstract" name="Abstract" />
         <Typography component="h3" variant="h6" align="left" paragraph>
-          Style transfer generates an image whose content comes from one image and style from the other.
-          Image-to-image translation approaches with disentangled representations have been shown effective for style transfer between two image categories.
-          However, previous methods often assume a shared domain-invariant content space,
-          which could compromise the content representation power. For addressing this issue, this paper leverages domain-specific mapping functions for remapping latent features in the shared content space to domain-specific content spaces.
-          This way, images can be encoded more properly for style transfer.
-          Experiments show that the proposed method outperforms previous style transfer methods, particularly on challenging scenarios that would require semantic correspondences between images.
+          Style transfer generates an image whose content comes from one image
+          and style from the other. Image-to-image translation approaches with
+          disentangled representations have been shown effective for style
+          transfer between two image categories. However, previous methods often
+          assume a shared domain-invariant content space, which could compromise
+          the content representation power. For addressing this issue, this
+          paper leverages domain-specific mapping functions for remapping latent
+          features in the shared content space to domain-specific content
+          spaces. This way, images can be encoded more properly for style
+          transfer. Experiments show that the proposed method outperforms
+          previous style transfer methods, particularly on challenging scenarios
+          that would require semantic correspondences between images.
         </Typography>
 
         <Title anchor="paper" name="Paper" />
@@ -88,18 +107,24 @@ function App() {
         <Grid item>
           <Link href={project.arxivLink} target="_blank" rel="noopener">
             <PictureAsPdfIcon color="action" style={{ fontSize: 60 }} />
-            <Typography align="center" variant="h6" color="inherit">Arxiv</Typography>
+            <Typography align="center" variant="h6" color="inherit">
+              Arxiv
+            </Typography>
           </Link>
         </Grid>
 
         <Title anchor="citation" name="Citation" />
         <Typography align="left" variant="h6" color="inherit" gutterBottom>
-          {`Hsin-Yu Chang, Zhixiang Wang, and Yung-Yu Chuang, "Domain-Specific Mappings for Generative Adversarial Style Transfers", in Proceedings of the European Conference on Computer Vision (ECCV), 2020`}
+          {`Hsin-Yu Chang, Zhixiang Wang, and Yung-Yu Chuang, "Domain-Specific
+          Mappings for Generative Adversarial Style Transfers", in Proceedings
+          of the European Conference on Computer Vision (ECCV), 2020`}
         </Typography>
         <Chip label="BibTeX" variant="outlined" color="primary" />
         <Paper elevation={0} className={classes.bibtexSpan}>
           <Typography align="left" variant="h6" color="inherit" gutterBottom>
-            <pre style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>{bibtex}</pre>
+            <pre style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
+              {bibtex}
+            </pre>
           </Typography>
         </Paper>
 
@@ -108,34 +133,67 @@ function App() {
           <Grid item>
             <Link href={project.githubPage} target="_blank" rel="noopener">
               <GitHubIcon color="action" style={{ fontSize: 60 }} />
-              <Typography align="center" variant="h6" color="inherit">Code</Typography>
+              <Typography align="center" variant="h6" color="inherit">
+                Code
+              </Typography>
             </Link>
           </Grid>
           <Grid item>
-            <Link href={project.supplementaryLink} target="_blank" rel="noopener">
+            <Link
+              href={project.supplementaryLink}
+              target="_blank"
+              rel="noopener"
+            >
               <PictureAsPdfIcon color="action" style={{ fontSize: 60 }} />
-              <Typography align="center" variant="h6" color="inherit" gutterBottom>Supplementary</Typography>
+              <Typography
+                align="center"
+                variant="h6"
+                color="inherit"
+                gutterBottom
+              >
+                Supplementary
+              </Typography>
             </Link>
           </Grid>
           <Grid item>
             <Link href={project.resultZipLink} target="_blank" rel="noopener">
               <StorageIcon color="action" style={{ fontSize: 60 }} />
-              <Typography align="center" variant="h6" color="inherit" gutterBottom>Results</Typography>
+              <Typography
+                align="center"
+                variant="h6"
+                color="inherit"
+                gutterBottom
+              >
+                Results
+              </Typography>
             </Link>
           </Grid>
           <Grid item>
             <Link href={project.youtubeLink} target="_blank" rel="noopener">
               <YouTubeIcon color="action" style={{ fontSize: 60 }} />
-              <Typography align="center" variant="h6" color="inherit">Video</Typography>
+              <Typography align="center" variant="h6" color="inherit">
+                Video
+              </Typography>
             </Link>
           </Grid>
         </Grid>
 
         <Title anchor="results" name="Results" />
-        <div align="center">
-          <Link href={process.env.PUBLIC_URL + '/#/demo'} target="_blank" rel="noopener"> {/* TODO: use react-router Link instead */}
+        <div>
+          <Link
+            href={`${process.env.PUBLIC_URL}/#/demo`}
+            target="_blank"
+            rel="noopener"
+          >
+            {' '}
+            {/* TODO: use react-router Link instead */}
             <Typography variant="h6" color="inherit" gutterBottom>
-              <img src={process.env.PUBLIC_URL + '/images/demo.png'} height="150px" alt="demo page thumb" /> <br />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/demo.png`}
+                height="150px"
+                alt="demo page thumb"
+              />{' '}
+              <br />
               Demo Website
             </Typography>
           </Link>
@@ -143,9 +201,19 @@ function App() {
 
         <Title anchor="acknowledgments" name="Acknowledgments" />
         <Typography variant="body1" align="left" paragraph>
-          We thank <Link href="https://github.com/leVirve">Hung-Jin Lin</Link> for providing this template! <br />
-          We thank <Link href="https://github.com/HsinYingLee/DRIT">DRIT</Link> and <Link href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix">CycleGAN</Link> for providing their datasets. <br />
-          Part of our codes are based on <Link href="https://github.com/NVlabs/MUNIT">MUNIT</Link> and <Link href="https://github.com/HelenMao/MSGAN">MSGAN</Link>.
+          We thank <Link href="https://github.com/leVirve">Hung-Jin Lin</Link>{' '}
+          for providing this template! <br />
+          We thank <Link href="https://github.com/HsinYingLee/DRIT">
+            DRIT
+          </Link>{' '}
+          and{' '}
+          <Link href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix">
+            CycleGAN
+          </Link>{' '}
+          for providing their datasets. <br />
+          Part of our codes are based on{' '}
+          <Link href="https://github.com/NVlabs/MUNIT">MUNIT</Link> and{' '}
+          <Link href="https://github.com/HelenMao/MSGAN">MSGAN</Link>.
         </Typography>
 
         <Footer />

@@ -40,12 +40,11 @@ ReactDOM.render(
     <div>
       <CssBaseline />
       <HashRouter basename={process.env.PUBLIC_URL}>
-        <Route exact path="/" component={App}></Route>
-        <Route exact path="/demo" component={Demo}></Route>
+        <Route exact path="/" component={App} />
+        <Route exact path="/demo" component={Demo} />
       </HashRouter>
     </div>
-  </ThemeProvider>
-  ,
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
