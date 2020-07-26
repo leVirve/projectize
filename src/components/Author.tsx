@@ -40,7 +40,7 @@ export default function Author(props: Props): React.ReactElement<Props> {
         className={classes.authorRoot}
         spacing={2}
       >
-        {authors.map((author, index) => (
+        {authors.map((author) => (
           <Grid item key={author.name}>
             <Typography component="h3" variant="h6">
               <Link href={author.url}>{author.name}</Link>
@@ -55,7 +55,7 @@ export default function Author(props: Props): React.ReactElement<Props> {
         className={classes.affiliationRoot}
         spacing={2}
       >
-        {affiliations.map((affiliation, index) => (
+        {affiliations.map((affiliation) => (
           <Grid item key={affiliation.name}>
             <Typography component="h4" variant="h6">
               {affiliation.name}
