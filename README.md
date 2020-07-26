@@ -1,29 +1,45 @@
 # Projectize
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Behold, make your own research project site in modern web framework React.
 
-## Available Scripts
+:fleur_de_lis:
 
+## Get Started
+
+You first need node and yarn installed.
 In the project directory, you can run:
 
-### `yarn start`
+- Setup the enviroment
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    ```bash
+    yarn install
+    ```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Run the development environment
 
-### `yarn build`
+    ```bash
+    yarn start
+    ```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    The page will reload if you make edits. You will also see any lint errors in the console.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+    Put all your result images under the `public/` and with the correct path.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Pack for production
 
-### `yarn deploy`
+    ```bash
+    yarn build
+    ```
 
-Deploy the app uner the `build` folder to Github Page.<br />
+    Build the app for production and output to the `build` folder.
+    It correctly bundles React in production mode and optimizes the build for the best performance.
+
+- Pack for production
+
+
+    ```bash
+    yarn deploy
+    ```
+
+    Deploy the `build` folder to Github Page.
