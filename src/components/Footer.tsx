@@ -10,14 +10,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Footer(): React.ReactElement {
+interface Props {
+  authorName: string;
+  githubPage: string;
+}
+
+export default function Footer(props: Props): React.ReactElement<Props> {
   const classes = useStyles();
+  const { authorName, githubPage } = props;
 
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <Typography variant="body2" color="textSecondary" align="center">
           {'Copyright © '}
+          <Link color="inherit" href={githubPage}>
+            {authorName}
+          </Link>
+          {' , Template © '}
           <Link color="inherit" href="https://github.com/leVirve">
             Hung-Jin Lin
           </Link>{' '}

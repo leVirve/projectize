@@ -33,7 +33,7 @@ export default function Title(props: Props): React.ReactElement<Props> {
       <Typography
         className={classes.text}
         align="left"
-        component="h3" // TODO
+        component="h4"
         variant={fontVariant ? fontVariant.variant : 'h4'}
         gutterBottom
       >

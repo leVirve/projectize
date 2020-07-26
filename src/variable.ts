@@ -1,4 +1,6 @@
 export const project = {
+  authorName: 'Hsin-Yu Chang',
+  authorGithubProfile: 'https://github.com/acht7111020',
   githubPage: 'https://github.com/acht7111020/DSMAP',
   paperName:
     'DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers',

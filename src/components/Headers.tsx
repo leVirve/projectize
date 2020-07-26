@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import { HashLink } from 'react-router-hash-link'; // TODO:
+import GithubCorner from 'react-github-corner';
+import Sticky from 'react-stickynode';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -45,19 +46,17 @@ interface SectionItem {
   title: string;
 }
 interface Props {
-  id: string;
   sections: SectionItem[];
+  githubPage: string;
   title: string;
 }
 
 export default function Header(props: Props): React.ReactElement<Props> {
   const classes = useStyles();
-  const { id, sections, title } = props;
-  const preventDefault = (event: React.MouseEvent): void =>
-    event.preventDefault();
+  const { sections, title, githubPage } = props;
 
   return (
-    <div id={id}>
+    <>
       <Toolbar className={classes.toolbar}>
         <Typography
           component="h2"
@@ -77,20 +76,26 @@ export default function Header(props: Props): React.ReactElement<Props> {
       >
         {sections.map((section) => (
           <Link
-            component={HashLink}
-            onClick={preventDefault}
-            variant="subtitle2"
             color="inherit"
             noWrap
-            smooth
-            to={section.url}
             key={section.title}
+            variant="body2"
+            href={process.env.PUBLIC_URL + section.url}
             className={classes.toolbarLink}
           >
             {section.title}
           </Link>
         ))}
       </Toolbar>
-    </div>
+
+      {/* add github sticker */}
+      {githubPage ? (
+        <Sticky>
+          <GithubCorner href={githubPage} />
+        </Sticky>
+      ) : (
+        ''
+      )}
+    </>
   );
 }

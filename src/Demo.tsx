@@ -144,10 +144,11 @@ function App(): React.ReactElement {
 
   return (
     <div className="App">
-      <Header id="header" title={project.paperName} sections={sections} />
-      <Sticky top="#header">
-        <GithubCorner href={project.githubPage} />
-      </Sticky>
+      <Header
+        title={project.paperName}
+        sections={sections}
+        githubPage={project.githubPage}
+      />
       <Container maxWidth="lg">
         <Title
           anchor="control"
@@ -310,7 +311,11 @@ function App(): React.ReactElement {
           </Link>
           , CVPR 2019
         </Typography>
-        <Footer />
+
+        <Footer
+          authorName={project.authorName}
+          githubPage={project.authorGithubProfile}
+        />
       </Container>
     </div>
   );

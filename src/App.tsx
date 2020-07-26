@@ -16,8 +16,6 @@ import {
   PictureAsPdf as PictureAsPdfIcon,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import GithubCorner from 'react-github-corner';
-import Sticky from 'react-stickynode';
 import { Link as ReactLink } from 'react-router-dom';
 
 import { project, authors, affiliations, bibtex } from './variable';
@@ -62,10 +60,11 @@ function App(): React.ReactElement {
 
   return (
     <div className={classes.main}>
-      <Header id="header" title={project.paperName} sections={sections} />
-      <Sticky top="#header">
-        <GithubCorner href={project.githubPage} />
-      </Sticky>
+      <Header
+        title={project.paperName}
+        sections={sections}
+        githubPage={project.githubPage}
+      />
       <Container maxWidth="lg">
         <Typography
           component="h1"
@@ -199,9 +198,10 @@ function App(): React.ReactElement {
                 elevation={0}
                 imageSrc={`${process.env.PUBLIC_URL}/images/style_inter.gif`}
               />
-              {/* <Link target="_blank" rel="noopener"> */}
-              Demo Website
-              {/* </Link> */}
+              {/* a dummy link stuff */}
+              <Link href="/demo" target="_blank" rel="noopener">
+                Demo Website
+              </Link>
             </Typography>
           </ReactLink>
         </div>
@@ -209,7 +209,11 @@ function App(): React.ReactElement {
         <Title anchor="acknowledgments" name="Acknowledgments" />
         <Typography variant="body1" align="left" paragraph>
           We thank <Link href="https://github.com/leVirve">Hung-Jin Lin</Link>{' '}
-          for providing this template! <br />
+          for providing{' '}
+          <Link href="https://github.com/leVirve/projectize-d">
+            this template!
+          </Link>{' '}
+          <br />
           We thank <Link href="https://github.com/HsinYingLee/DRIT">
             DRIT
           </Link>{' '}
@@ -223,7 +227,10 @@ function App(): React.ReactElement {
           <Link href="https://github.com/HelenMao/MSGAN">MSGAN</Link>.
         </Typography>
 
-        <Footer />
+        <Footer
+          authorName={project.authorName}
+          githubPage={project.authorGithubProfile}
+        />
       </Container>
     </div>
   );
