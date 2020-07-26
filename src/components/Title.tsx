@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
@@ -12,36 +11,35 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     fontFamily: 'Source Serif Pro',
-  }
+  },
 }));
 
-export default function Title(props) {
+interface TypographyVariant {
+  // component: string;
+  variant: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+}
+interface Props {
+  name: string;
+  anchor: string;
+  fontVariant?: TypographyVariant;
+}
+
+export default function Title(props: Props): React.ReactElement<Props> {
   const classes = useStyles();
-  const { name, anchor, variant } = props;
+  const { name, anchor, fontVariant } = props;
 
   return (
     <Box className={classes.title} id={anchor}>
-      <Typography className={classes.text} align="left"
-       component={variant.component} variant={variant.variant} gutterBottom>
+      <Typography
+        className={classes.text}
+        align="left"
+        component="h4"
+        variant={fontVariant ? fontVariant.variant : 'h4'}
+        gutterBottom
+      >
         {name}
       </Typography>
       <Divider />
     </Box>
   );
-}
-
-Title.propTypes = {
-  name: PropTypes.string,
-  anchor: PropTypes.string,
-  variant: PropTypes.shape({
-    component: PropTypes.string,
-    variant: PropTypes.string
-  }),
-};
-
-Title.defaultProps = {
-  variant: {
-    component: 'h2',
-    variant: 'h4',
-  }
 }

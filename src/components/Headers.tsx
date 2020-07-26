@@ -1,16 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import { HashLink } from 'react-router-hash-link';
-
+import GithubCorner from 'react-github-corner';
+import Sticky from 'react-stickynode';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundImage: "radial-gradient(circle, rgb(233, 148, 148) 0%, rgb(238, 174, 202) 100%)",
+    backgroundImage:
+      'radial-gradient(circle, rgb(233, 148, 148) 0%, rgb(238, 174, 202) 100%)',
     color: '#fff',
     zIndex: 0,
   },
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
       '& > a': {
         padding: theme.spacing(0, 1),
       },
-    }
+    },
   },
   toolbarLink: {
     padding: theme.spacing(1),
@@ -41,13 +41,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header(props) {
+interface SectionItem {
+  url: string;
+  title: string;
+}
+interface Props {
+  sections: SectionItem[];
+  githubPage: string;
+  title: string;
+}
+
+export default function Header(props: Props): React.ReactElement<Props> {
   const classes = useStyles();
-  const { sections, title } = props;
-  const preventDefault = (event) => event.preventDefault();
+  const { sections, title, githubPage } = props;
 
   return (
-    <React.Fragment>
+    <>
       <Toolbar className={classes.toolbar}>
         <Typography
           component="h2"
@@ -60,28 +69,33 @@ export default function Header(props) {
           {title}
         </Typography>
       </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+      <Toolbar
+        component="nav"
+        variant="dense"
+        className={classes.toolbarSecondary}
+      >
         {sections.map((section) => (
           <Link
-            component={HashLink}
-            onClick={preventDefault}
-            variant="subtitle2"
             color="inherit"
             noWrap
-            smooth
-            to={section.url}
             key={section.title}
+            variant="body2"
+            href={process.env.PUBLIC_URL + section.url}
             className={classes.toolbarLink}
           >
             {section.title}
           </Link>
         ))}
       </Toolbar>
-    </React.Fragment>
+
+      {/* add github sticker */}
+      {githubPage ? (
+        <Sticky>
+          <GithubCorner href={githubPage} />
+        </Sticky>
+      ) : (
+        ''
+      )}
+    </>
   );
 }
-
-Header.propTypes = {
-  sections: PropTypes.array,
-  title: PropTypes.string,
-};
