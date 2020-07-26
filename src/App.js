@@ -133,7 +133,7 @@ function App() {
 
         <Title anchor="results" name="Results" />
         <div align="center">
-          <Link href={process.env.PUBLIC_URL + '/#/demo'} target="_blank" rel="noopener"> {/* TODO: use react-router Link instead */}
+          <Link href="/demo" target="_blank" rel="noopener">
             <Typography variant="h6" color="inherit" gutterBottom>
               <img src={process.env.PUBLIC_URL + '/images/demo.png'} height="150px" alt="demo page thumb" /> <br />
               Demo Website
