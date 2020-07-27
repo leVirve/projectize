@@ -19,6 +19,9 @@ import Title from '../components/Title';
 import ImageContainer from '../components/ImageContainer';
 
 const useStyles = makeStyles((theme) => ({
+  main: {
+    textAlign: 'center',
+  },
   slider: {
     width: 300,
   },
@@ -76,6 +79,7 @@ const PinkSlider = withStyles({
 })(Slider);
 
 function DemoPage(): React.ReactElement {
+  const classes = useStyles();
   const demoPageSections = [
     { title: 'Home', url: '/' },
     { title: 'Control', url: '/demo#control' },
@@ -89,7 +93,7 @@ function DemoPage(): React.ReactElement {
     'DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers';
 
   return (
-    <div className="App">
+    <div className={classes.main}>
       <Header
         title={paperName}
         githubPage={githubPage}
