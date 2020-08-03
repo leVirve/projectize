@@ -9,8 +9,7 @@ import Sticky from 'react-stickynode';
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundImage:
-      'radial-gradient(circle, rgb(233, 148, 148) 0%, rgb(238, 174, 202) 100%)',
+    backgroundColor: '#003153',
     color: '#fff',
     zIndex: 0,
   },
@@ -19,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarSecondary: {
     justifyContent: 'center',
-    backgroundColor: '#fef1f3',
+    backgroundColor: '#ddd',
     zIndex: 0,
     '& > a': {
       padding: theme.spacing(0, 5),

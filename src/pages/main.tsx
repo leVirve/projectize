@@ -56,11 +56,10 @@ export default function MainPage(): React.ReactElement {
     { title: 'Download', url: '#download' },
     { title: 'Results', url: '#results' },
   ];
-  const authorName = 'Hsin-Yu Chang';
-  const authorGithubProfile = 'https://github.com/acht7111020';
-  const githubPage = 'https://github.com/acht7111020/DSMAP';
-  const paperName =
-    'DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers';
+  const authorName = 'Ke-Chi Chang';
+  const authorGithubProfile = 'https://github.com/arcchang1236';
+  const githubPage = 'https://github.com/arcchang1236/CA-NoiseGAN';
+  const paperName = 'Learning Camera-Aware Noise Models';
 
   return (
     <div className={classes.main}>
@@ -84,8 +83,10 @@ export default function MainPage(): React.ReactElement {
 
 function HeadingTeaser(): React.ReactElement {
   const classes = useStyles();
-  const topicLabels = ['ECCV 2020', 'Style Transfer'];
-  const imageUrl = `${process.env.PUBLIC_URL}/images/teaser.png`;
+  const topicLabels = ['ECCV 2020'];
+  // TODO: replace with real teaser
+  // const imageUrl = `${process.env.PUBLIC_URL}/images/teaser.png`;
+  const imageUrl = `https://picsum.photos/id/1010/5184/3456`;
 
   return (
     <>
@@ -95,8 +96,7 @@ function HeadingTeaser(): React.ReactElement {
         gutterBottom
         className={classes.titleHead}
       >
-        Domain-Specific Mappings <br />
-        for Generative Adversarial Style Transfers <br />
+        Learning Camera-Aware Noise Models <br />
         {topicLabels.map((label) => (
           <Chip key={label} label={label} />
         ))}
@@ -111,24 +111,45 @@ function HeadingTeaser(): React.ReactElement {
 function AuthorSection(): React.ReactElement {
   const authors = [
     {
-      name: 'Hsin-Yu Chang',
-      url: 'http://www.cmlab.csie.ntu.edu.tw/~hsinyu1020/',
-      affiliation: '',
+      name: 'Ke-Chi Chang',
+      url: '',
+      affiliation: '1,2',
     },
     {
-      name: 'Zhixiang Wang',
-      url: 'http://www.cmlab.csie.ntu.edu.tw/~r06944046/',
-      affiliation: '',
+      name: 'Ren Wang',
+      url: '',
+      affiliation: '1',
     },
     {
-      name: 'Yung-Yu Chuang',
-      url: 'https://www.csie.ntu.edu.tw/~cyy/',
-      affiliation: '',
+      name: 'Hung-Jin Lin',
+      url: '',
+      affiliation: '1',
+    },
+    {
+      name: 'Yu-Lun Liu',
+      url: '',
+      affiliation: '1',
+    },
+    {
+      name: 'Chia-Ping Chen',
+      url: '',
+      affiliation: '1',
+    },
+    {
+      name: 'Yu-Lin Chang',
+      url: '',
+      affiliation: '1',
+    },
+    {
+      name: 'Hwann-Tzong Chen',
+      url: '',
+      affiliation: '2',
     },
   ];
 
   const affiliations = [
-    { number: '', name: 'National Taiwan University', url: '' },
+    { number: '1', name: 'MediaTek Inc.', url: '' },
+    { number: '2', name: 'National Tsing Hua University', url: '' },
   ];
   return (
     <>
@@ -142,18 +163,17 @@ function AbstractSection(): React.ReactElement {
     <>
       <Title anchor="abstract" name="Abstract" />
       <Typography component="h3" variant="h6" align="left" paragraph>
-        Style transfer generates an image whose content comes from one image and
-        style from the other. Image-to-image translation approaches with
-        disentangled representations have been shown effective for style
-        transfer between two image categories. However, previous methods often
-        assume a shared domain-invariant content space, which could compromise
-        the content representation power. For addressing this issue, this paper
-        leverages domain-specific mapping functions for remapping latent
-        features in the shared content space to domain-specific content spaces.
-        This way, images can be encoded more properly for style transfer.
-        Experiments show that the proposed method outperforms previous style
-        transfer methods, particularly on challenging scenarios that would
-        require semantic correspondences between images.
+        Modeling imaging sensor noise is a fundamental problem for image
+        processing and computer vision applications. While most previous works
+        adopt statistical noise models, real-world noise is far more complicated
+        and beyond what these models can describe. To tackle this issue, we
+        propose a data-driven approach, where a generative noise model is
+        learned from real-world noise. The proposed noise model is camera-aware,
+        that is, different noise characteristics of different camera sensors can
+        be learned simultaneously, and a single learned noise model can generate
+        different noise for different camera sensors. Experimental results show
+        that our method quantitatively and qualitatively outperforms existing
+        statistical noise models and learning-based methods.
       </Typography>
     </>
   );
@@ -162,14 +182,13 @@ function AbstractSection(): React.ReactElement {
 function PaperSection(): React.ReactElement {
   const classes = useStyles();
   const thumbImageUrl = `${process.env.PUBLIC_URL}/images/thumb.png`;
-  const thumbTitle = `Domain-specific Mappings for Generative Adversarial Style Transfers, ECCV 2020 (arxiv)`;
+  const thumbTitle = `Learning Camera-Aware Noise Models, ECCV 2020 (arxiv)`;
   const arxivLink = '';
-  const descriptionText = `Hsin-Yu Chang, Zhixiang Wang, and Yung-Yu Chuang, "Domain-Specific
-  Mappings for Generative Adversarial Style Transfers", in Proceedings
+  const descriptionText = `Ke-Chi Chang, Ren Wang, Hung-Jin Lin, Yu-Lun Liu, Chia-Ping Chen, Yu-Lin Chang, and Hwann-Tzong Chen, "Learning Camera-Aware Noise Models", in Proceedings
   of the European Conference on Computer Vision (ECCV), 2020`;
-  const bibtex = `@inproceedings{chang2020dsmap,
-    author    = {Chang, Hsin-Yu and Wang, Zhixiang and Chuang, Yung-Yu},
-    title     = {Domain-Specific Mappings for Generative Adversarial Style Transfers},
+  const bibtex = `@inproceedings{chang2020canoisegan,
+    author    = {Chang, Ke-Chi and Wang, Ren and Lin, Hung-Jin and Liu, Yu-Lun and Chen, Chia-Ping and Chang, Yu-Lin and Chen, Hwann-Tzong},
+    title     = {Learning Camera-Aware Noise Models},
     booktitle = {European Conference on Computer Vision},
     year      = {2020}
   }`;
@@ -206,13 +225,10 @@ function PaperSection(): React.ReactElement {
 function DownloadSection(): React.ReactElement {
   const classes = useStyles();
   const youtubeLink = '';
-  const githubProjectLink = 'https://github.com/acht7111020/DSMAP';
-  const supplementaryLink =
-    'https://www.dropbox.com/s/9wt2753hjgzf3rv/ECCV_supp_domain_specific_mapping_style_transfer.pdf?dl=0';
-  const demoZipLink =
-    'https://drive.google.com/file/d/1T2FDk9t78KgujByIrig-440in1lckOTe/view?usp=sharing';
-  const resultZipLink =
-    'https://drive.google.com/file/d/1RhQRE1a-7O-a7nuNvrcqtoM79sxWvA5g/view?usp=sharing';
+  const githubProjectLink = 'https://github.com/arcchang1236/CA-NoiseGAN';
+  const supplementaryLink = '';
+  const demoZipLink = '';
+  const resultZipLink = '';
 
   const iconLinksContent = [
     { name: 'Code', url: githubProjectLink, icon: GitHubIcon },
@@ -253,6 +269,7 @@ function DownloadSection(): React.ReactElement {
 function ResultsSection(): React.ReactElement {
   return (
     <>
+      // TODO: make result section
       <Title anchor="results" name="Results (Demo website)" />
       <div>
         <ReactLink to="/demo">
@@ -281,17 +298,11 @@ function AcknowledgmentsSection(): React.ReactElement {
         providing{' '}
         <Link href="https://github.com/leVirve/projectize">this template!</Link>{' '}
         <br />
-        We thank <Link href="https://github.com/HsinYingLee/DRIT">
-          DRIT
-        </Link>{' '}
-        and{' '}
-        <Link href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix">
-          CycleGAN
-        </Link>{' '}
-        for providing their datasets. <br />
+        We thank <Link href="/toto">SIDD</Link> for providing their datasets.{' '}
+        <br />
         Part of our codes are based on{' '}
-        <Link href="https://github.com/NVlabs/MUNIT">MUNIT</Link> and{' '}
-        <Link href="https://github.com/HelenMao/MSGAN">MSGAN</Link>.
+        <Link href="/toto">SIDD simple camera pipeline</Link> and{' '}
+        <Link href="/toto">NoiseFlow</Link>.
       </Typography>
     </>
   );
