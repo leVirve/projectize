@@ -161,10 +161,12 @@ function InteractiveDemoComponent(): React.ReactElement {
     setDataset(event.target.value as string);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleImageChange = (event: any, newValue: number | number[]): void => {
     setImageId(newValue as number);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleStyleChange = (event: any, newValue: number | number[]): void => {
     setStyleId(newValue as number);
   };
