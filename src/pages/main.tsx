@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(4),
     fontFamily: 'Source Serif Pro',
-    '& > *': {
+    '& > a > *': {
       margin: theme.spacing(0.5),
     },
   },
@@ -84,7 +84,10 @@ export default function MainPage(): React.ReactElement {
 
 function HeadingTeaser(): React.ReactElement {
   const classes = useStyles();
-  const topicLabels = ['ECCV 2020', 'Style Transfer'];
+  const topicLabels = [
+    { text: 'ECCV 2020', url: 'https://eccv2020.eu/' },
+    { text: 'Style Transfer', url: 'https://eccv2020.eu/' },
+  ];
   const imageUrl = `${process.env.PUBLIC_URL}/images/teaser.png`;
 
   return (
@@ -98,7 +101,14 @@ function HeadingTeaser(): React.ReactElement {
         Domain-Specific Mappings <br />
         for Generative Adversarial Style Transfers <br />
         {topicLabels.map((label) => (
-          <Chip key={label} label={label} />
+          <Link
+            key={label.text}
+            href={label.url}
+            target="_blank"
+            rel="noopener"
+          >
+            <Chip label={label.text} />
+          </Link>
         ))}
       </Typography>
       <AuthorSection />
