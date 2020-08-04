@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarSecondary: {
     justifyContent: 'center',
-    backgroundColor: '#ddd',
+    backgroundColor: '#b0d1f3',
     zIndex: 0,
     '& > a': {
       padding: theme.spacing(0, 5),

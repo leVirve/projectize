@@ -84,9 +84,7 @@ export default function MainPage(): React.ReactElement {
 function HeadingTeaser(): React.ReactElement {
   const classes = useStyles();
   const topicLabels = ['ECCV 2020'];
-  // TODO: replace with real teaser
-  // const imageUrl = `${process.env.PUBLIC_URL}/images/teaser.png`;
-  const imageUrl = `https://picsum.photos/id/1010/5184/3456`;
+  const imageUrl = `${process.env.PUBLIC_URL}/images/teaser.jpg`;
 
   return (
     <>
@@ -98,7 +96,9 @@ function HeadingTeaser(): React.ReactElement {
       >
         Learning Camera-Aware Noise Models <br />
         {topicLabels.map((label) => (
-          <Chip key={label} label={label} />
+          <Link href="https://eccv2020.eu/" target="_blank" rel="noopener">
+            <Chip key={label} label={label} />
+          </Link>
         ))}
       </Typography>
       <AuthorSection />
@@ -127,7 +127,7 @@ function AuthorSection(): React.ReactElement {
     },
     {
       name: 'Yu-Lun Liu',
-      url: '',
+      url: 'https://www.cmlab.csie.ntu.edu.tw/~yulunliu',
       affiliation: '1',
     },
     {
@@ -159,6 +159,8 @@ function AuthorSection(): React.ReactElement {
 }
 
 function AbstractSection(): React.ReactElement {
+  const imageUrl = `${process.env.PUBLIC_URL}/images/network.jpg`;
+
   return (
     <>
       <Title anchor="abstract" name="Abstract" />
@@ -175,13 +177,14 @@ function AbstractSection(): React.ReactElement {
         that our method quantitatively and qualitatively outperforms existing
         statistical noise models and learning-based methods.
       </Typography>
+      <Banner elevation={0} imageSrc={imageUrl} />
     </>
   );
 }
 
 function PaperSection(): React.ReactElement {
   const classes = useStyles();
-  const thumbImageUrl = `${process.env.PUBLIC_URL}/images/thumb.png`;
+  const thumbImageUrl = `${process.env.PUBLIC_URL}/images/thumb.jpg`;
   const thumbTitle = `Learning Camera-Aware Noise Models, ECCV 2020 (arxiv)`;
   const arxivLink = '';
   const descriptionText = `Ke-Chi Chang, Ren Wang, Hung-Jin Lin, Yu-Lun Liu, Chia-Ping Chen, Yu-Lin Chang, and Hwann-Tzong Chen, "Learning Camera-Aware Noise Models", in Proceedings
@@ -243,7 +246,7 @@ function DownloadSection(): React.ReactElement {
       <Title anchor="download" name="Download" />
       <Grid container justify="center" spacing={1}>
         {iconLinksContent.map((iconLink) => (
-          <Grid item xs={2}>
+          <Grid item xs={4}>
             <Link href={iconLink.url} target="_blank" rel="noopener">
               <Icon
                 component={iconLink.icon}
@@ -269,7 +272,6 @@ function DownloadSection(): React.ReactElement {
 function ResultsSection(): React.ReactElement {
   return (
     <>
-      // TODO: make result section
       <Title anchor="results" name="Results (Demo website)" />
       <div>
         <ReactLink to="/demo">
