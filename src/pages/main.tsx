@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(4),
     fontFamily: 'Source Serif Pro',
-    '& > *': {
+    '& > a > *': {
       margin: theme.spacing(0.5),
     },
   },
@@ -83,7 +83,7 @@ export default function MainPage(): React.ReactElement {
 
 function HeadingTeaser(): React.ReactElement {
   const classes = useStyles();
-  const topicLabels = ['ECCV 2020'];
+  const topicLabels = [{ text: 'ECCV 2020', url: 'https://eccv2020.eu/' }];
   const imageUrl = `${process.env.PUBLIC_URL}/images/teaser.jpg`;
 
   return (
@@ -96,8 +96,13 @@ function HeadingTeaser(): React.ReactElement {
       >
         Learning Camera-Aware Noise Models <br />
         {topicLabels.map((label) => (
-          <Link href="https://eccv2020.eu/" target="_blank" rel="noopener">
-            <Chip key={label} label={label} />
+          <Link
+            key={label.text}
+            href={label.url}
+            target="_blank"
+            rel="noopener"
+          >
+            <Chip label={label.text} />
           </Link>
         ))}
       </Typography>
