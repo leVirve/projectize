@@ -233,7 +233,7 @@ function DownloadSection(): React.ReactElement {
       <Title anchor="download" name="Download" />
       <Grid container justify="center" spacing={1}>
         {iconLinksContent.map((iconLink) => (
-          <Grid item xs={2}>
+          <Grid item xs={2} key={iconLink.url}>
             <Link href={iconLink.url} target="_blank" rel="noopener">
               <Icon
                 component={iconLink.icon}
