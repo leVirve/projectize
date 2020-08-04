@@ -164,7 +164,7 @@ function AuthorSection(): React.ReactElement {
 }
 
 function AbstractSection(): React.ReactElement {
-  const imageUrl = `${process.env.PUBLIC_URL}/images/network.jpg`;
+  const imageUrl = `${process.env.PUBLIC_URL}/images/network.png`;
 
   return (
     <>
@@ -235,15 +235,13 @@ function DownloadSection(): React.ReactElement {
   const youtubeLink = '';
   const githubProjectLink = 'https://github.com/arcchang1236/CA-NoiseGAN';
   const supplementaryLink = '';
-  const demoZipLink = '';
   const resultZipLink = '';
 
   const iconLinksContent = [
     { name: 'Code', url: githubProjectLink, icon: GitHubIcon },
     { name: 'Video', url: youtubeLink, icon: YouTubeIcon },
     { name: 'Supplementary', url: supplementaryLink, icon: PictureAsPdfIcon },
-    { name: 'Demo Results', url: demoZipLink, icon: StorageIcon },
-    { name: 'More Results', url: resultZipLink, icon: StorageIcon },
+    { name: 'Results', url: resultZipLink, icon: StorageIcon },
   ];
 
   return (
@@ -251,7 +249,7 @@ function DownloadSection(): React.ReactElement {
       <Title anchor="download" name="Download" />
       <Grid container justify="center" spacing={1}>
         {iconLinksContent.map((iconLink) => (
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Link href={iconLink.url} target="_blank" rel="noopener">
               <Icon
                 component={iconLink.icon}
@@ -277,20 +275,20 @@ function DownloadSection(): React.ReactElement {
 function ResultsSection(): React.ReactElement {
   return (
     <>
-      <Title anchor="results" name="Results (Demo website)" />
+      <Title anchor="results" name="Results" />
       <div>
-        <ReactLink to="/demo">
+        Comming soon...
+        {/* <ReactLink to="/demo">
           <Typography variant="h6" color="inherit" gutterBottom>
             <Banner
               elevation={0}
               imageSrc={`${process.env.PUBLIC_URL}/images/style_inter.gif`}
             />
-            {/* a dummy link stuff */}
             <Link href="/demo" target="_blank" rel="noopener">
               Demo Website
             </Link>
           </Typography>
-        </ReactLink>
+        </ReactLink> */}
       </div>
     </>
   );
