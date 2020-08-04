@@ -28,7 +28,7 @@ In the project directory, you can run:
     yarn start
 
     // or
-    npm run start
+    npm start
     ```
 
     The page opened in [http://localhost:3000](http://localhost:3000) will reload if you make edits. You will also see any lint errors in the console.
