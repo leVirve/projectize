@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     padding: theme.spacing(1, 4),
   },
+  iconText: {
+    wordWrap: 'break-word',
+  },
 }));
 
 export default function MainPage(): React.ReactElement {
@@ -201,6 +204,7 @@ function PaperSection(): React.ReactElement {
 }
 
 function DownloadSection(): React.ReactElement {
+  const classes = useStyles();
   const youtubeLink = '';
   const githubProjectLink = 'https://github.com/acht7111020/DSMAP';
   const supplementaryLink =
@@ -221,16 +225,21 @@ function DownloadSection(): React.ReactElement {
   return (
     <>
       <Title anchor="download" name="Download" />
-      <Grid container justify="center" spacing={6}>
+      <Grid container justify="center" spacing={1}>
         {iconLinksContent.map((iconLink) => (
-          <Grid item>
+          <Grid item xs={2}>
             <Link href={iconLink.url} target="_blank" rel="noopener">
               <Icon
                 component={iconLink.icon}
                 color="action"
                 style={{ fontSize: 60 }}
               />
-              <Typography align="center" variant="h6" color="inherit">
+              <Typography
+                align="center"
+                variant="h6"
+                color="inherit"
+                className={classes.iconText}
+              >
                 {iconLink.name}
               </Typography>
             </Link>
