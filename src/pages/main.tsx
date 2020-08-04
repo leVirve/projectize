@@ -207,11 +207,7 @@ function PaperSection(): React.ReactElement {
       <Chip label="Arxiv" variant="outlined" color="primary" />
       <Grid item>
         <Link href={arxivLink} target="_blank" rel="noopener">
-          <Banner
-            metadata={{ title: thumbTitle }}
-            elevation={0}
-            imageSrc={thumbImageUrl}
-          />
+          <Banner title={thumbTitle} elevation={0} imageSrc={thumbImageUrl} />
         </Link>
       </Grid>
       <Title anchor="citation" name="Citation" />
@@ -249,7 +245,7 @@ function DownloadSection(): React.ReactElement {
       <Title anchor="download" name="Download" />
       <Grid container justify="center" spacing={1}>
         {iconLinksContent.map((iconLink) => (
-          <Grid item xs={3}>
+          <Grid item xs={3} key={iconLink.url}>
             <Link href={iconLink.url} target="_blank" rel="noopener">
               <Icon
                 component={iconLink.icon}
