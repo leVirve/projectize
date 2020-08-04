@@ -190,11 +190,7 @@ function PaperSection(): React.ReactElement {
       <Chip label="Arxiv" variant="outlined" color="primary" />
       <Grid item>
         <Link href={arxivLink} target="_blank" rel="noopener">
-          <Banner
-            metadata={{ title: thumbTitle }}
-            elevation={0}
-            imageSrc={thumbImageUrl}
-          />
+          <Banner title={thumbTitle} elevation={0} imageSrc={thumbImageUrl} />
         </Link>
       </Grid>
       <Title anchor="citation" name="Citation" />
