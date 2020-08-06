@@ -17,6 +17,7 @@ import Header from '../components/Headers';
 import Footer from '../components/Footer';
 import Title from '../components/Title';
 import ImageContainer from '../components/ImageContainer';
+import Magnifier from '../components/magnifiers/Magnifier';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -91,6 +92,8 @@ function DemoPage(): React.ReactElement {
   const githubPage = 'https://github.com/acht7111020/DSMAP';
   const paperName =
     'DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers';
+  const imageUrl1 = `${process.env.PUBLIC_URL}/images/clean_dog.jpg`;
+  const imageUrl2 = `${process.env.PUBLIC_URL}/images/noisy_dog.jpg`;
 
   return (
     <div className={classes.main}>
@@ -100,7 +103,56 @@ function DemoPage(): React.ReactElement {
         sections={demoPageSections}
       />
       <Container maxWidth="lg">
-        <InteractiveDemoComponent />
+        <div style={{ textAlign: 'left' }}>
+          <Magnifier
+            src={imageUrl1}
+            width={500}
+            mgWidth={100}
+            mgHeight={100}
+            zoomFactor={1.5}
+          />
+        </div>
+        <div style={{ marginBottom: 200 }} />
+        {/* <Grid container justify="center" spacing={1}>
+          <Grid item xs={8}>
+            <div style={{ width: 700, height: 450 }}>
+              <ImageSlider
+                image1={imageUrl1}
+                image2={imageUrl2}
+                sliderColor="white"
+                handleColor="gray"
+                leftLabelText="After noise model"
+                rightLabelText="Reference"
+                onSlide={() => {
+                  console.log('sliding');
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography variant="subtitle1" gutterBottom>
+              Scene
+            </Typography>
+            <Slider
+              value={2}
+              aria-labelledby="discrete-slider"
+              valueLabelDisplay="auto"
+              min={1}
+              max={4}
+            />
+            <Typography variant="subtitle1" gutterBottom>
+              ISO
+            </Typography>
+            <Slider
+              value={1600}
+              aria-labelledby="discrete-slider"
+              valueLabelDisplay="auto"
+              step={400}
+              min={100}
+              max={3200}
+            />
+          </Grid>
+        </Grid> */}
         <ReferencesSection />
       </Container>
       <Footer authorName={authorName} githubPage={authorGithubProfile} />

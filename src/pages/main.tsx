@@ -273,18 +273,11 @@ function ResultsSection(): React.ReactElement {
     <>
       <Title anchor="results" name="Results" />
       <div>
-        Comming soon...
-        {/* <ReactLink to="/demo">
+        <ReactLink to="/demo">
           <Typography variant="h6" color="inherit" gutterBottom>
-            <Banner
-              elevation={0}
-              imageSrc={`${process.env.PUBLIC_URL}/images/style_inter.gif`}
-            />
-            <Link href="/demo" target="_blank" rel="noopener">
-              Demo Website
-            </Link>
+            Comming soon...
           </Typography>
-        </ReactLink> */}
+        </ReactLink>
       </div>
     </>
   );
