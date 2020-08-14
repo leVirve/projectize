@@ -228,10 +228,11 @@ function PaperSection(): React.ReactElement {
 
 function DownloadSection(): React.ReactElement {
   const classes = useStyles();
-  const youtubeLink = '';
+  const youtubeLink = 'https://youtu.be/_VWN8oLk68Q';
   const githubProjectLink = 'https://github.com/arcchang1236/CA-NoiseGAN';
   const supplementaryLink = '';
-  const resultZipLink = '';
+  const resultZipLink =
+    'https://drive.google.com/file/d/1eKbZ8kd_9PzIKlDFGWj4Pdiv3OP_XPt1/view';
 
   const iconLinksContent = [
     { name: 'Code', url: githubProjectLink, icon: GitHubIcon },
