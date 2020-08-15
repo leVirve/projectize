@@ -2,23 +2,17 @@ import React, { useState, useRef } from 'react';
 
 import {
   Container,
-  CircularProgress,
   FormControl,
-  FormControlLabel,
-  FormLabel,
-  RadioGroup,
+  FormHelperText,
   Grid,
   Link,
-  Slider,
   Select,
   InputLabel,
-  Radio,
   MenuItem,
   Typography,
 } from '@material-ui/core';
-import useMouse, { MousePosition } from '@react-hook/mouse-position';
 import useSize from '@react-hook/size';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   MagnifierContainer,
   MagnifierPreview,
@@ -29,7 +23,6 @@ import { MOUSE_ACTIVATION } from 'react-input-position';
 import Header from '../components/Headers';
 import Footer from '../components/Footer';
 import Title from '../components/Title';
-import ImageContainer from '../components/ImageContainer';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -45,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 200,
+    minWidth: 120,
   },
   selectText: {
     '&.Mui-focused': {
@@ -65,37 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PinkSlider = withStyles({
-  root: {
-    color: '#F08080',
-    height: 8,
-  },
-  thumb: {
-    height: 12,
-    width: 12,
-    backgroundColor: '#fff',
-    border: '2px solid currentColor',
-  },
-  valueLabel: {
-    left: 'calc(-12px)',
-  },
-  mark: {
-    backgroundColor: '#FFB6C1',
-    height: 3,
-    borderRadius: 2,
-  },
-  track: {
-    height: 4,
-    borderRadius: 2,
-    background: 'linear-gradient(87deg, #FE6B8B 30%, #FF8E63 90%)',
-  },
-  rail: {
-    height: 4,
-    borderRadius: 2,
-    background: 'linear-gradient(87deg, #FE6B8B 30%, #FF8E63 90%)',
-  },
-})(Slider);
-
 function DemoPage(): React.ReactElement {
   const classes = useStyles();
   const demoPageSections = [
@@ -104,11 +66,10 @@ function DemoPage(): React.ReactElement {
     { title: 'Result', url: '/demo#result' },
     { title: 'References', url: '/demo#references' },
   ];
-  const authorName = 'Hsin-Yu Chang';
-  const authorGithubProfile = 'https://github.com/acht7111020';
-  const githubPage = 'https://github.com/acht7111020/DSMAP';
-  const paperName =
-    'DSMAP: Domain-specific Mappings for Generative Adversarial Style Transfers';
+  const authorName = 'Ke-Chi Chang';
+  const authorGithubProfile = 'https://github.com/arcchang1236';
+  const githubPage = 'https://github.com/arcchang1236/CA-NoiseGAN';
+  const paperName = 'Learning Camera-Aware Noise Models';
 
   return (
     <div className={classes.main}>
@@ -119,51 +80,13 @@ function DemoPage(): React.ReactElement {
       />
       <Container maxWidth="lg">
         <Title anchor="result_denoise" name="Denoisers" />
-        <MagnifierPackDenoiserDemoComponet />
-        {/* <Title anchor="result" name="Result" />
-        <Grid container justify="center" spacing={1}>
-          <div style={{ textAlign: 'left' }}>
-            <Magnifier
-              src={imageUrl1}
-              width={500}
-              mgWidth={100}
-              mgHeight={100}
-              zoomFactor={3}
-            />
-          </div>
-        </Grid>
-        <div style={{ marginBottom: 200 }} /> */}
+        <MagnifierPackDenoiserDemoComponent />
         <Title anchor="result_noise" name="Noise Models" />
-        <Grid>
-          <MagnifierDemoComponet />
-        </Grid>
-        {/* <Grid>
-          <MagnifierDenoiserDemoComponet />
-        </Grid> */}
         <ReferencesSection />
       </Container>
       <Footer authorName={authorName} githubPage={authorGithubProfile} />
     </div>
   );
-}
-
-function urlForResult(
-  dataset: string,
-  prefix: string,
-  { imageId, styleId }: { imageId?: number; styleId?: number }
-): string {
-  const prefixUrl = `${process.env.PUBLIC_URL}/images/demo_compared/${dataset}`;
-
-  if (imageId === undefined && styleId)
-    return `${prefixUrl}/${prefix}_${zeroPad(styleId, 2)}.jpg`;
-  if (styleId === undefined && imageId)
-    return `${prefixUrl}/${prefix}_${zeroPad(imageId, 2)}.jpg`;
-  if (imageId && styleId)
-    return `${prefixUrl}/${prefix}_${zeroPad(imageId, 2)}_${zeroPad(
-      styleId,
-      2
-    )}.jpg`;
-  return 'fail';
 }
 
 function zeroPad(num: number, numZeros: number): string {
@@ -172,81 +95,128 @@ function zeroPad(num: number, numZeros: number): string {
   return zeroString + num;
 }
 
-interface Props {
-  width: string | number;
-  height: string | number;
-}
-MagnifierDemoComponet.defaultProps = {
-  width: '100%',
-  height: 'auto',
-};
 interface Dictionary<T> {
   [Key: string]: T;
 }
 
-function MagnifierPackDenoiserDemoComponet(): React.ReactElement {
+function MagnifierPackDenoiserDemoComponent(): React.ReactElement {
+  const classes = useStyles();
   const target = useRef(null);
   const [gridWidth] = useSize(target);
-  const [imageId, setImageId] = useState(7);
-  const [img1Load, setImg1Load] = useState(false);
-  const [camera, setCamera] = useState('lg');
-  const [iso, setIso] = useState('100');
+  const [imageId, setImageId] = useState(1);
+  const [sceneId, setSceneId] = useState(1);
+  const [camera, setCamera] = useState('pixel');
+  const [iso, setIso] = useState(100);
 
   const imageUrlPrefix = `${process.env.PUBLIC_URL}/images/NR/NR_output`;
+  const cameraMapping: Dictionary<number> = {
+    pixel: 0,
+    iphone: 1,
+    samsung: 2,
+    nexus: 3,
+    lg: 4,
+  };
   const cameraOptions = [
-    { model: 'LG', value: 'lg' },
-    { model: 'Nexus', value: 'nexus' },
-    { model: 'Pixel', value: 'pixel' },
-    { model: 'Samsung', value: 'samsung' },
-    { model: 'iPhone', value: 'iphone' },
+    { model: 'LG', value: 'lg', fullVal: 'LG-H815-LGE-lge' },
+    { model: 'Nexus', value: 'nexus', fullVal: 'Nexus 6-motorola-google' },
+    { model: 'Pixel', value: 'pixel', fullVal: 'Pixel-Google-google' },
+    { model: 'Samsung', value: 'samsung', fullVal: 'SM-G925I-samsung-samsung' },
+    { model: 'iPhone', value: 'iphone', fullVal: 'iPhone9,3 back camera' },
   ];
+
+  const formatFileName = (note: string): string => {
+    const cameraId = cameraMapping[camera];
+    const isoVal = zeroPad(iso, 4);
+    const imageNum = zeroPad(imageId, 2);
+    const url = `${imageUrlPrefix}/${cameraId}_${sceneId}_${isoVal}_${imageNum}_${note}.jpg`;
+    return url;
+  };
+
   const methodPatches = [
     {
       method: 'Gaussian',
-      url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_g.jpg`,
+      url: formatFileName('g'),
     },
     {
-      method: 'HeteroGaussian',
-      url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_pg.jpg`,
+      method: 'Hetero-Gaussian',
+      url: formatFileName('pg'),
     },
     {
       method: 'NoiseFlow',
-      url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_nf.jpg`,
+      url: formatFileName('nf'),
     },
     {
       method: 'Real',
-      url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_real.jpg`,
+      url: formatFileName('real'),
     },
     {
       method: 'Ours',
-      url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_ours.jpg`,
+      url: formatFileName('ours'),
     },
     {
-      method: 'Ours+Real',
-      url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_real_ours.jpg`,
+      method: 'Ours + Real',
+      url: formatFileName('realours'),
     },
   ];
-  const isoOptions: Dictionary<string[]> = {
-    lg: ['100', '400', '800'],
-    nexus: ['100', '400', '800', '1600', '3200'],
-    pixel: ['100', '800', '3200', '6400'],
-    samsung: ['100', '800', '3200', '6400'],
-    iphone: ['100', '400', '800', '1600'],
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  function range(count: number) {
+    const start = 1;
+    return Array.apply(0, Array(count)).map((element, index) => index + start);
+  }
+
+  const imageSources: Dictionary<Dictionary<Dictionary<number[]>>> = {
+    pixel: {
+      1: { iso: [100, 800], num: [4, 4] },
+      2: { iso: [100, 800, 6400], num: [2, 4, 2] },
+      8: { iso: [100, 800, 3200], num: [2, 2, 2] },
+    },
+    iphone: {
+      1: { iso: [100, 800, 1600], num: [2, 4, 4] },
+      2: { iso: [100, 800, 1600], num: [4, 4, 2] },
+      8: { iso: [100, 400, 800, 1600], num: [4, 4, 4, 2] },
+    },
+    samsung: {
+      1: { iso: [100, 800, 3200], num: [16, 6, 8] },
+      2: { iso: [100, 1600], num: [2, 2] },
+      8: { iso: [100, 800, 1600, 3200], num: [2, 2, 2, 2] },
+    },
+    nexus: {
+      1: { iso: [100, 800], num: [2, 2] },
+      2: { iso: [100, 3200], num: [2, 2] },
+      8: { iso: [100, 400, 800, 1600], num: [2, 2, 2, 2] },
+    },
+    lg: {
+      1: { iso: [100, 800], num: [2, 2] },
+      2: { iso: [100, 800], num: [2, 2] },
+      8: { iso: [100, 800], num: [2, 2] },
+    },
   };
 
-  const handleCameraChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+  const handleSceneChange = (
+    event: React.ChangeEvent<{ value: unknown }>
   ): void => {
-    setCamera((event.target as HTMLInputElement).value);
+    setSceneId(event.target.value as number);
+    setIso(100);
+    setImageId(1);
+  };
+  const handleCameraChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ): void => {
+    setCamera(event.target.value as string);
+    setIso(100);
+    setImageId(1);
   };
   const handleIsoChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<{ value: unknown }>
   ): void => {
-    setIso((event.target as HTMLInputElement).value);
+    setIso(event.target.value as number);
+    setImageId(1);
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleImageChange = (event: any, newValue: number | number[]): void => {
-    setImageId(newValue as number);
+  const handleImageChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ): void => {
+    setImageId(event.target.value as number);
   };
 
   return (
@@ -254,75 +224,99 @@ function MagnifierPackDenoiserDemoComponet(): React.ReactElement {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <MagnifierPreview
-            imageSrc={`${imageUrlPrefix}/${zeroPad(imageId, 6)}_noisy.jpg`}
+            imageSrc={formatFileName('noisy')}
             mouseActivation={MOUSE_ACTIVATION.MOUSE_DOWN}
-            onImageLoad={(): void => {
-              setImg1Load(true);
-            }}
           />
-          {!img1Load && <CircularProgress />}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Camera</FormLabel>
-            <RadioGroup
-              aria-label="camera"
-              name="camera"
+          <FormControl className={classes.formControl}>
+            <InputLabel id="NR-scene-select-helper-label">
+              SIDD Scene
+            </InputLabel>
+            <Select
+              labelId="NR-scene-select-helper-label"
+              id="NR-scene-select-helper"
+              value={sceneId}
+              onChange={handleSceneChange}
+            >
+              {Object.keys(imageSources[camera]).map((val) => (
+                <MenuItem key={val} value={val}>
+                  Scene #{val}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl className={classes.formControl}>
+            <InputLabel id="NR-camera-select-helper-label">Camera</InputLabel>
+            <Select
+              labelId="NR-camera-select-helper-label"
+              id="NR-camera-select-helper"
               value={camera}
               onChange={handleCameraChange}
-              row
             >
               {cameraOptions.map((option) => (
-                <FormControlLabel
-                  key={option.value}
-                  value={option.value}
-                  control={<Radio />}
-                  label={option.model}
-                />
+                <MenuItem key={option.value} value={option.value}>
+                  {option.model}
+                </MenuItem>
               ))}
-            </RadioGroup>
-            <FormLabel component="legend">ISO</FormLabel>
-            <RadioGroup
-              aria-label="iso"
-              name="iso"
+            </Select>
+          </FormControl>
+
+          <FormControl className={classes.formControl}>
+            <InputLabel id="NR-iso-select-helper-label">ISO</InputLabel>
+            <Select
+              labelId="NR-iso-select-helper-label"
+              id="NR-iso-select-helper"
               value={iso}
               onChange={handleIsoChange}
-              row
             >
-              {isoOptions[camera].map((option) => (
-                <FormControlLabel
-                  key={option}
-                  value={option}
-                  control={<Radio />}
-                  label={option}
-                />
+              {imageSources[camera][sceneId].iso.map((isoOption) => (
+                <MenuItem key={isoOption} value={isoOption}>
+                  {isoOption}
+                </MenuItem>
               ))}
-            </RadioGroup>
+            </Select>
+            <FormHelperText>*Better view in high ISO.</FormHelperText>
           </FormControl>
-          <Typography variant="subtitle1" gutterBottom>
-            Scene
-          </Typography>
-          <Slider
-            value={imageId}
-            aria-labelledby="discrete-slider"
-            valueLabelDisplay="auto"
-            step={1}
-            marks
-            min={1}
-            max={12}
-            onChange={handleImageChange}
-          />
+
+          <FormControl className={classes.formControl}>
+            <InputLabel id="NR-images-select-helper-label">
+              Conditions
+            </InputLabel>
+            <Select
+              labelId="NR-images-select-helper-label"
+              id="NR-images-select-helper"
+              value={imageId}
+              onChange={handleImageChange}
+            >
+              {range(
+                imageSources[camera][sceneId].num[
+                  imageSources[camera][sceneId].iso.indexOf(iso)
+                ]
+              ).map((imageIdx) => (
+                <MenuItem key={imageIdx} value={imageIdx}>
+                  {imageIdx}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>Different photo conditions.</FormHelperText>
+          </FormControl>
+          {/* <img width="100px" src={formatFileName('noisy')} alt="debug" /> */}
         </Grid>
       </Grid>
       <Grid container>
         {methodPatches.map((meta) => (
           <Grid item xs={4} md={2} key={meta.method} ref={target}>
-            {meta.method}
+            <Typography style={{ paddingTop: 5 }} variant="subtitle2">
+              {meta.method}
+            </Typography>
             <MagnifierZoom
               style={{
                 height: gridWidth - 5,
                 width: gridWidth - 5,
                 opacity: '1',
+                boxShadow: '0 0 0.2em black',
               }}
               imageSrc={meta.url}
             />
@@ -330,430 +324,6 @@ function MagnifierPackDenoiserDemoComponet(): React.ReactElement {
         ))}
       </Grid>
     </MagnifierContainer>
-  );
-}
-
-function MagnifierDenoiserDemoComponet(): React.ReactElement<Props> {
-  const [imageId, setImageId] = useState(7);
-  const [camera, setCamera] = useState('lg');
-  const [iso, setIso] = useState('100');
-  const target = useRef(null);
-  const mouse = useMouse(target, {
-    fps: 30,
-    enterDelay: 100,
-    leaveDelay: 100,
-  });
-
-  const cameraOptions = [
-    { model: 'LG', value: 'lg' },
-    { model: 'Nexus', value: 'nexus' },
-    { model: 'Pixel', value: 'pixel' },
-    { model: 'Samsung', value: 'samsung' },
-    { model: 'iPhone', value: 'iphone' },
-  ];
-  const isoOptions: Dictionary<string[]> = {
-    lg: ['100', '400', '800'],
-    nexus: ['100', '400', '800', '1600', '3200'],
-    pixel: ['100', '800', '3200', '6400'],
-    samsung: ['100', '800', '3200', '6400'],
-    iphone: ['100', '400', '800', '1600'],
-  };
-
-  const handleCameraChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setCamera((event.target as HTMLInputElement).value);
-  };
-  const handleIsoChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setIso((event.target as HTMLInputElement).value);
-  };
-
-  const imageUrlPrefix = `${process.env.PUBLIC_URL}/images/NR/NR_output`;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleImageChange = (event: any, newValue: number | number[]): void => {
-    setImageId(newValue as number);
-  };
-
-  return (
-    <>
-      <div>
-        <Grid container justify="center" spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <img
-              src={`${imageUrlPrefix}/${zeroPad(imageId, 6)}_noisy.jpg`}
-              alt="demo"
-              ref={target}
-              style={{ width: 'auto', maxHeight: 300 }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            {' '}
-            <Typography variant="subtitle1" gutterBottom>
-              Scene
-            </Typography>
-            <Slider
-              value={imageId}
-              aria-labelledby="discrete-slider"
-              valueLabelDisplay="auto"
-              step={1}
-              marks
-              min={1}
-              max={12}
-              onChange={handleImageChange}
-            />
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Camera</FormLabel>
-              <RadioGroup
-                aria-label="camera"
-                name="camera"
-                value={camera}
-                onChange={handleCameraChange}
-                row
-              >
-                {cameraOptions.map((option) => (
-                  <FormControlLabel
-                    key={option.value}
-                    value={option.value}
-                    control={<Radio />}
-                    label={option.model}
-                  />
-                ))}
-              </RadioGroup>
-              <FormLabel component="legend">ISO</FormLabel>
-              <RadioGroup
-                aria-label="iso"
-                name="iso"
-                value={iso}
-                onChange={handleIsoChange}
-                row
-              >
-                {isoOptions[camera].map((option) => (
-                  <FormControlLabel
-                    key={option}
-                    value={option}
-                    control={<Radio />}
-                    label={option}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-          <RegionOverlays
-            mouse={mouse}
-            subtitle="Denoised Comparison"
-            zoomFactor={3}
-            patches={[
-              {
-                method: 'Gaussian',
-                url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_g.jpg`,
-              },
-              {
-                method: 'HeteroGaussian',
-                url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_pg.jpg`,
-              },
-              {
-                method: 'NoiseFlow',
-                url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_nf.jpg`,
-              },
-              {
-                method: 'Real',
-                url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_real.jpg`,
-              },
-              {
-                method: 'Ours',
-                url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_ours.jpg`,
-              },
-              {
-                method: 'Ours+Real',
-                url: `${imageUrlPrefix}/${zeroPad(imageId, 6)}_real_ours.jpg`,
-              },
-            ]}
-          />
-        </Grid>
-      </div>
-    </>
-  );
-}
-
-function MagnifierDemoComponet(props: Props): React.ReactElement<Props> {
-  const { width, height } = props;
-  const target = useRef(null);
-  const mouse = useMouse(target, {
-    fps: 30,
-    enterDelay: 100,
-    leaveDelay: 100,
-  });
-
-  const cleanImage = `${process.env.PUBLIC_URL}/images/clean_dog.jpg`;
-
-  return (
-    <>
-      <div
-        style={{
-          width,
-          height,
-        }}
-      >
-        <Grid container justify="center" spacing={1}>
-          <Grid item xs={8}>
-            <div style={{ position: 'relative' }}>
-              <img src={cleanImage} alt="demo" ref={target} width="87%" />
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            {' '}
-            <Typography variant="subtitle1" gutterBottom>
-              Scene
-            </Typography>
-            <Slider
-              defaultValue={2}
-              aria-labelledby="discrete-slider"
-              valueLabelDisplay="auto"
-              step={1}
-              marks
-              min={1}
-              max={4}
-            />
-            <Typography variant="subtitle1" gutterBottom>
-              ISO
-            </Typography>
-            <Slider
-              defaultValue={1600}
-              aria-labelledby="discrete-slider"
-              valueLabelDisplay="auto"
-              step={400}
-              marks
-              min={100}
-              max={3200}
-            />
-            <div style={{ whiteSpace: 'pre', textAlign: 'left', fontSize: 8 }}>
-              <p>{JSON.stringify(mouse, null, 2)}</p>
-            </div>
-          </Grid>
-          <RegionOverlays mouse={mouse} subtitle="Noisy" />
-          <RegionOverlays mouse={mouse} subtitle="Noise" />
-        </Grid>
-      </div>
-    </>
-  );
-}
-
-interface PatchMetadata {
-  method: string;
-  url: string;
-}
-interface RegionOverlaysProps {
-  mouse: MousePosition;
-  zoomFactor: number;
-  patches: PatchMetadata[];
-  subtitle: string;
-}
-RegionOverlays.defaultProps = {
-  zoomFactor: 1.5,
-  patches: [],
-};
-
-function RegionOverlays(props: RegionOverlaysProps): React.ReactElement {
-  const { mouse, zoomFactor, patches, subtitle } = props;
-  const mgBorderWidth = 2;
-  const target = useRef(null);
-  const [gridWidth] = useSize(target);
-
-  const calcMagnifierLocation = (pos: number | null, size: number): string => {
-    if (pos) return `calc(${pos}px - ${size / 2}px - ${mgBorderWidth}px)`;
-    return `0`;
-  };
-  const calcBackgroundLocation = (): string => {
-    const posX = mouse.x;
-    const posY = mouse.y;
-    const height = mouse.elementHeight;
-    const width = mouse.elementWidth;
-    if (posX && posY && width && height) {
-      const relX = posX / width;
-      const relY = posY / height;
-      const offsetX = gridWidth / 2 - relX * gridWidth;
-      const offsetY = gridWidth / 2 - relY * gridWidth;
-      return `calc(${relX * 100}% + ${offsetX}px) calc(${
-        relY * 100
-      }% + ${offsetY}px)`;
-    }
-    return `0`;
-  };
-  const calcBackgroundSize = (): string => {
-    const height = mouse.elementHeight;
-    const width = mouse.elementWidth;
-    if (height && width)
-      return `${zoomFactor * width}% ${zoomFactor * height}%`;
-    return `0`;
-  };
-
-  return (
-    <>
-      <Typography variant="subtitle1" component="h6">
-        {subtitle}
-      </Typography>
-      <Grid container justify="center" spacing={1}>
-        {patches.map((meta) => (
-          <Grid key={meta.method} item xs={4} md={2} ref={target}>
-            <div
-              style={{
-                width: gridWidth - 10,
-                height: gridWidth - 10,
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: '#878787',
-                backgroundImage: `url("${meta.url}")`,
-                backgroundPosition: calcBackgroundLocation(),
-                backgroundSize: calcBackgroundSize(),
-                borderWidth: mgBorderWidth,
-              }}
-            >
-              <p style={{ backgroundColor: `rgba(255, 255, 255, 0.3)` }}>
-                {meta.method}
-              </p>
-            </div>
-          </Grid>
-        ))}
-      </Grid>
-    </>
-  );
-}
-
-function InteractiveDemoComponent(): React.ReactElement {
-  const classes = useStyles();
-  const [imageId, setImageId] = useState(1);
-  const [styleId, setStyleId] = useState(1);
-  const [dataset, setDataset] = useState('dog2cat');
-  const datasetItems = [
-    { name: 'dog2cat', text: 'Dog → Cat' },
-    { name: 'cat2dog', text: 'Cat → Dog' },
-    { name: 'monet', text: 'Photo → Monet' },
-    { name: 'portrait', text: 'Photo → Portrait' },
-  ];
-  const contentMarks = [];
-  const styleMarks = [];
-  for (let i = 2; i < 25; i += 2) contentMarks.push({ value: i });
-  for (let i = 2; i < 10; i += 1) styleMarks.push({ value: i });
-  const comparisons = [
-    { nameTag: 'MUNIT [1]', dataFolderPaht: 'munit' },
-    { nameTag: 'GDWCT [2]', dataFolderPaht: 'gdwct' },
-    { nameTag: 'MSGAN [3]', dataFolderPaht: 'msgan' },
-    { nameTag: 'Ours', dataFolderPaht: 'ours' },
-  ];
-
-  const handleDatasetChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ): void => {
-    setDataset(event.target.value as string);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleImageChange = (event: any, newValue: number | number[]): void => {
-    setImageId(newValue as number);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleStyleChange = (event: any, newValue: number | number[]): void => {
-    setStyleId(newValue as number);
-  };
-
-  return (
-    <>
-      <Title anchor="control" name="Control" fontVariant={{ variant: 'h5' }} />
-      <Typography variant="h6" align="left" paragraph>
-        Here you can browse the results of our model in comparison to
-        state-of-the-arts by choosing the translation tasks for different
-        datasets, content image ID (from 1 to 25), and style image ID (from 1 to
-        10).
-      </Typography>
-      <Grid container justify="center" spacing={6}>
-        <Grid item>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="label" className={classes.selectText}>
-              Dataset
-            </InputLabel>
-            <Select
-              className={classes.select}
-              value={dataset}
-              onChange={handleDatasetChange}
-            >
-              {datasetItems.map((item) => (
-                <MenuItem key={item.name} value={item.name}>
-                  {item.text}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" gutterBottom>
-            Content Image ID:
-          </Typography>
-          <PinkSlider
-            className={classes.slider}
-            value={imageId}
-            aria-labelledby="discrete-slider"
-            valueLabelDisplay="auto"
-            step={1}
-            marks={contentMarks}
-            min={1}
-            max={25}
-            onChange={handleImageChange}
-          />
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" gutterBottom>
-            Style Image ID:
-          </Typography>
-          <PinkSlider
-            className={classes.slider}
-            value={styleId}
-            aria-labelledby="discrete-slider"
-            valueLabelDisplay="auto"
-            step={1}
-            marks={styleMarks}
-            min={1}
-            max={10}
-            onChange={handleStyleChange}
-          />
-        </Grid>
-      </Grid>
-      {/* image / style image pair */}
-      <Grid container alignItems="center" justify="center" spacing={1}>
-        <Grid item xs={10} sm={5} md={3}>
-          <ImageContainer
-            title="Content Image"
-            height={240}
-            src={urlForResult(dataset, 'content', { imageId })}
-          />
-        </Grid>
-        <Grid item xs={10} sm={5} md={3}>
-          <ImageContainer
-            title="Style Image"
-            height={240}
-            src={urlForResult(dataset, 'style', { styleId })}
-          />
-        </Grid>
-      </Grid>
-
-      {/* comparison images */}
-      <Title anchor="result" name="Result" fontVariant={{ variant: 'h5' }} />
-      <Grid container justify="center" spacing={1}>
-        {comparisons.map((method) => (
-          <Grid item xs={10} sm={5} md={3}>
-            <ImageContainer
-              title={method.nameTag}
-              src={urlForResult(dataset, method.dataFolderPaht, {
-                imageId,
-                styleId,
-              })}
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </>
   );
 }
 
