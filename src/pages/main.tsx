@@ -183,7 +183,9 @@ function AbstractSection(): React.ReactElement {
         that our method quantitatively and qualitatively outperforms existing
         statistical noise models and learning-based methods.
       </Typography>
-      <Banner elevation={0} imageSrc={imageUrl} />
+      <div style={{ maxWidth: 800, height: 'auto', margin: 'auto' }}>
+        <Banner elevation={0} imageSrc={imageUrl} />
+      </div>
     </>
   );
 }
@@ -259,7 +261,7 @@ function DownloadSection(): React.ReactElement {
       <Title anchor="download" name="Download" />
       <Grid container justify="center" spacing={1}>
         {iconLinksContent.map((iconLink) => (
-          <Grid item xs={3} key={iconLink.url}>
+          <Grid item xs={2} key={iconLink.url}>
             <Link href={iconLink.url} target="_blank" rel="noopener">
               <Icon
                 component={iconLink.icon}
