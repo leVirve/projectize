@@ -231,7 +231,7 @@ function PaperSection(): React.ReactElement {
 
 function DownloadSection(): React.ReactElement {
   const classes = useStyles();
-  const youtubeLink = 'https://youtu.be/_VWN8oLk68Q';
+  const youtubeLink = 'https://www.youtube.com/embed/_VWN8oLk68Q';
   const githubProjectLink = 'https://github.com/arcchang1236/CA-NoiseGAN';
   const supplementaryLink = '';
   const resultZipLink =
