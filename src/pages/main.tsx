@@ -12,11 +12,10 @@ import {
 import {
   GitHub as GitHubIcon,
   Storage as StorageIcon,
-  YouTube as YouTubeIcon,
   PictureAsPdf as PictureAsPdfIcon,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link as ReactLink } from 'react-router-dom';
+// import { Link as ReactLink } from 'react-router-dom';
 
 import Header from '../components/Headers';
 import Title from '../components/Title';
@@ -24,6 +23,7 @@ import Author from '../components/Author';
 import Banner from '../components/Banner';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
+// import { DenoiserDemoComponent } from './demo';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -53,8 +53,9 @@ export default function MainPage(): React.ReactElement {
     { title: 'Home', url: '#' },
     { title: 'Abstract', url: '#abstract' },
     { title: 'Paper', url: '#paper' },
+    { title: 'Video', url: '#video' },
     { title: 'Download', url: '#download' },
-    { title: 'Results', url: '#results' },
+    { title: 'Demo', url: '#results' },
   ];
   const authorName = 'Ke-Chi Chang';
   const authorGithubProfile = 'https://github.com/arcchang1236';
@@ -108,7 +109,7 @@ function HeadingTeaser(): React.ReactElement {
       </Typography>
       <AuthorSection />
       <Banner elevation={0} imageSrc={imageUrl} />
-      <Button text="Download Code / Results" link="#download" />
+      <Button text="Download / Demo" link="#download" />
     </>
   );
 }
@@ -236,13 +237,25 @@ function DownloadSection(): React.ReactElement {
 
   const iconLinksContent = [
     { name: 'Code', url: githubProjectLink, icon: GitHubIcon },
-    { name: 'Video', url: youtubeLink, icon: YouTubeIcon },
+    // { name: 'Video', url: youtubeLink, icon: YouTubeIcon },
     { name: 'Supplementary', url: supplementaryLink, icon: PictureAsPdfIcon },
     { name: 'Results', url: resultZipLink, icon: StorageIcon },
   ];
 
   return (
     <>
+      <Title anchor="video" name="Video" />
+      <Grid container justify="center" spacing={1}>
+        <iframe
+          title="ytVideo"
+          width="660"
+          height="415"
+          src={youtubeLink}
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </Grid>
       <Title anchor="download" name="Download" />
       <Grid container justify="center" spacing={1}>
         {iconLinksContent.map((iconLink) => (
@@ -272,13 +285,15 @@ function DownloadSection(): React.ReactElement {
 function ResultsSection(): React.ReactElement {
   return (
     <>
+      {/* <Title anchor="demo" name="Interactive Demo" />
+      <MagnifierPackDenoiserDemoComponent /> */}
       <Title anchor="results" name="Results" />
       <div>
-        <ReactLink to="/demo">
-          <Typography variant="h6" color="inherit" gutterBottom>
-            Comming soon...
-          </Typography>
-        </ReactLink>
+        {/* <ReactLink to="/demo"> */}
+        <Typography variant="h6" color="inherit" gutterBottom>
+          Comming soon...
+        </Typography>
+        {/* </ReactLink> */}
       </div>
     </>
   );
