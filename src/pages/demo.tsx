@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 import {
   Container,
@@ -118,8 +118,6 @@ interface Dictionary<T> {
 
 export function NoiseModelDemoComponent(): React.ReactElement {
   const classes = useStyles();
-  const target = useRef(null);
-  const [gridWidth] = useSize(target);
   const [sceneId, setSceneId] = useState(1);
   const [camera, setCamera] = useState(2);
   const [iso, setIso] = useState(100);
@@ -186,6 +184,12 @@ export function NoiseModelDemoComponent(): React.ReactElement {
   ): void => {
     setShowNoise(event.target.checked);
   };
+
+  const targets = React.useMemo<React.RefObject<HTMLDivElement>[]>(
+    () => Array.from({ length: 5 }).map(() => React.createRef()),
+    []
+  );
+  const [gridWidth] = useSize(targets[0]);
 
   return (
     <MagnifierContainer>
@@ -255,13 +259,14 @@ export function NoiseModelDemoComponent(): React.ReactElement {
           <MagnifierPreview
             imageSrc={formatFileName('noisy')}
             mouseActivation={MOUSE_ACTIVATION.MOUSE_DOWN}
+            transitionSpeed={0}
           />
         </Grid>
       </Grid>
       <Grid container justify="center">
         {showNoise &&
           methodOptions.map((method) => (
-            <Grid item xs={2} md={2} key={method.name} ref={target}>
+            <Grid item xs={2} md={2} key={method.name}>
               <Typography
                 className={classes.magnifierZoomCaption}
                 variant="subtitle2"
@@ -275,14 +280,15 @@ export function NoiseModelDemoComponent(): React.ReactElement {
                   width: gridWidth - 5,
                   opacity: '1',
                 }}
+                transitionSpeed={0}
                 imageSrc={formatFileName(method.note)}
               />
             </Grid>
           ))}
       </Grid>
       <Grid container justify="center">
-        {methodOptions.map((method) => (
-          <Grid item xs={2} md={2} key={method.name} ref={target}>
+        {methodOptions.map((method, i) => (
+          <Grid item xs={2} md={2} key={method.name} ref={targets[i]}>
             <Typography
               className={classes.magnifierZoomCaption}
               variant="subtitle2"
@@ -296,6 +302,7 @@ export function NoiseModelDemoComponent(): React.ReactElement {
                 width: gridWidth - 5,
                 opacity: '1',
               }}
+              transitionSpeed={0}
               imageSrc={formatFileName(`noisy${method.note}`)}
             />
           </Grid>
@@ -307,8 +314,6 @@ export function NoiseModelDemoComponent(): React.ReactElement {
 
 export function DenoiserDemoComponent(): React.ReactElement {
   const classes = useStyles();
-  const target = useRef(null);
-  const [gridWidth] = useSize(target);
   const [sceneId, setSceneId] = useState(1);
   const [camera, setCamera] = useState(2);
 
@@ -353,6 +358,12 @@ export function DenoiserDemoComponent(): React.ReactElement {
     setCamera(event.target.value as number);
   };
 
+  const targets = React.useMemo<React.RefObject<HTMLDivElement>[]>(
+    () => Array.from({ length: 5 }).map(() => React.createRef()),
+    []
+  );
+  const [gridWidth] = useSize(targets[0]);
+
   return (
     <MagnifierContainer>
       <Grid container spacing={2}>
@@ -393,6 +404,7 @@ export function DenoiserDemoComponent(): React.ReactElement {
           <MagnifierPreview
             imageSrc={formatFileName('noisy')}
             mouseActivation={MOUSE_ACTIVATION.MOUSE_DOWN}
+            transitionSpeed={0}
           />
         </Grid>
         <Grid item xs={4} sm={2} className={classes.cleanDenoiseSmaller}>
@@ -410,12 +422,13 @@ export function DenoiserDemoComponent(): React.ReactElement {
               opacity: '1',
             }}
             imageSrc={formatFileName('clean')}
+            transitionSpeed={0}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Grid container>
-            {methodOptions.map((method) => (
-              <Grid item xs={4} md={4} key={method.name} ref={target}>
+            {methodOptions.map((method, i) => (
+              <Grid item xs={4} md={4} key={method.name} ref={targets[i]}>
                 <Typography
                   className={classes.magnifierZoomCaption}
                   variant="subtitle2"
@@ -430,6 +443,7 @@ export function DenoiserDemoComponent(): React.ReactElement {
                     opacity: '1',
                   }}
                   imageSrc={formatFileName(method.note)}
+                  transitionSpeed={0}
                 />
               </Grid>
             ))}
