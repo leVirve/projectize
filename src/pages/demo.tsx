@@ -319,12 +319,14 @@ export function DenoiserDemoComponent(): React.ReactElement {
 
   const imageUrlPrefix = `${process.env.PUBLIC_URL}/images/denoise`;
   const methodOptions = [
+    { name: 'Noisy', note: 'noisy' },
     { name: 'Gaussian', note: 'g' },
     { name: 'HeteroGaussian', note: 'pg' },
     { name: 'NoiseFlow [1]', note: 'nf' },
     { name: 'Real Paired', note: 'real' },
     { name: 'Ours', note: 'ours' },
     { name: 'Ours + Real', note: 'realours' },
+    { name: 'Clean', note: 'clean' },
   ];
   const cameraOptions = [
     { model: 'Pixel', value: 0, fullVal: 'Pixel-Google-google' },
@@ -407,28 +409,10 @@ export function DenoiserDemoComponent(): React.ReactElement {
             transitionSpeed={0}
           />
         </Grid>
-        <Grid item xs={4} sm={2} className={classes.cleanDenoiseSmaller}>
-          <Typography
-            className={classes.magnifierZoomCaption}
-            variant="subtitle2"
-          >
-            Clean
-          </Typography>
-          <MagnifierZoom
-            className={classes.magnifierZoomBox}
-            style={{
-              height: gridWidth - 5,
-              width: gridWidth - 5,
-              opacity: '1',
-            }}
-            imageSrc={formatFileName('clean')}
-            transitionSpeed={0}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={8}>
           <Grid container>
             {methodOptions.map((method, i) => (
-              <Grid item xs={4} md={4} key={method.name} ref={targets[i]}>
+              <Grid item xs={3} md={3} key={method.name} ref={targets[i]}>
                 <Typography
                   className={classes.magnifierZoomCaption}
                   variant="subtitle2"
